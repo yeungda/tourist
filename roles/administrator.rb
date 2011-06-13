@@ -17,11 +17,15 @@ location :log_in do
     browser.find_element(:id => 'admin_user_password').send_keys data[:password]
     browser.find_element(:id => 'admin_user_submit').click
   end
+
+  observe do |browser|
+    {:page_title => browser.title}
+  end
 end
 
 location :log_in_failed do
   observe do |browser|
-    "page title is #{browser.title}"
+    {:page_title => browser.title}
   end
 end
 
@@ -29,7 +33,7 @@ location :log_in_successful do
   to :dashboard do end
 
   observe do |browser|
-    puts "log_in successful page title is #{browser.title}"
+    {:page_title => browser.title}
   end
 end
 

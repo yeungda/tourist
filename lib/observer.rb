@@ -9,5 +9,4 @@ class Observer
   def observe(browser, blackbox)
     blackbox.log(location, @block.yield(browser))
   end
-  
 end
