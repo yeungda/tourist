@@ -3,9 +3,6 @@ location :start do
     browser.navigate.to data[:url]
   end
 
-  record do |browser, blackbox|
-
-  end
 end
 
 location :log_in do
@@ -22,8 +19,18 @@ location :log_in do
   end
 end
 
+location :log_in_failed do
+  observe do |browser|
+    "page title is #{browser.title}"
+  end
+end
+
 location :log_in_successful do
   to :dashboard do end
+
+  observe do |browser|
+    puts "log_in successful page title is #{browser.title}"
+  end
 end
 
 location :dashboard do

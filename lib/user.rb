@@ -2,11 +2,12 @@ require "selenium-webdriver"
 
 class User
 
-  def initialize(name, targets, role, user_data)
+  def initialize(name, targets, role, user_data, observers)
     @name = name
     @targets = targets
     @role = role
     @user_data = user_data
+    @observers = observers
   end
 
   def visit(locations)
@@ -16,7 +17,7 @@ class User
     @targets.resolve(locations).each do |location|
       puts "#{@name}\tvisiting #{location.name}"
       location.visit(@browser, @user_data.yield)
-      #blackbox.record location.name
+      @observers.observe(location.name, @browser)
     end
   end
 

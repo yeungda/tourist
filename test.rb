@@ -6,3 +6,5 @@ Dir[File.dirname(__FILE__) + "/scenarios/*.rb"].each {|file| require file }
 @scenarios.each do |scenario|
   scenario.play @users
 end
+
+@blackbox.print
