@@ -23,7 +23,7 @@ def to(name, &block)
   @targets.add(Target.new(name, [@current_location], block))
 end
 
-def observe(&block)
+def observations(&block)
   @observers.add(Observer.new(@current_location, block))
 end
 

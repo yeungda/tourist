@@ -18,13 +18,13 @@ location :log_in do
     browser.find_element(:id => 'admin_user_submit').click
   end
 
-  observe do |browser|
+  observations do |browser|
     {:page_title => browser.title}
   end
 end
 
 location :log_in_failed do
-  observe do |browser|
+  observations do |browser|
     {:page_title => browser.title}
   end
 end
@@ -32,7 +32,7 @@ end
 location :log_in_successful do
   to :dashboard do end
 
-  observe do |browser|
+  observations do |browser|
     {:page_title => browser.title}
   end
 end
