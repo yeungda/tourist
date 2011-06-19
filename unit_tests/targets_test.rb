@@ -1,44 +1,49 @@
-require '/Users/dyeung/Scratch/testjourney/lib/targets.rb'
+require File.expand_path(File.dirname(__FILE__) + '/../lib/locations.rb')
+require File.expand_path(File.dirname(__FILE__) + '/../lib/transition.rb')
 
-def assert_equals(expected, actual)
-  raise "#{expected} != #{actual}" unless expected == actual
+def assert_equals(actual, expected)
+  raise "expected #{expected.to_s}, got #{actual.to_s}" unless expected == actual
 end
 
 do_nothing = lambda {}
 
-a = Target.new(:a, [], do_nothing)
-b = Target.new(:b, [:a], do_nothing)
-c = Target.new(:c, [:b], do_nothing)
-d = Target.new(:d, [], do_nothing)
-e = Target.new(:e, [:c, :d], do_nothing)
-f = Target.new(:f, [:a], do_nothing)
+def t(destination)
+  Transition.new(destination, lambda {})
+end
 
-targets = Targets.new
-targets.add(a)
-assert_equals(targets.resolve(:a), [a])
+a = Location.new(:a, [t(:b)], [])
+b = Location.new(:b, [t(:c)], [])
+c = Location.new(:c, [t(:d)], [])
+d = Location.new(:d, [t(:e)], [])
+e = Location.new(:e, [], [])
+f = Location.new(:f, [], [])
 
-targets = Targets.new
-targets.add(a)
-targets.add(b)
-assert_equals(targets.resolve(:b), [a, b])
+targets = Locations.new [a]
+assert_equals(targets.resolve([:a]), [a])
 
-targets = Targets.new
-targets.add(c)
-targets.add(b)
-targets.add(a)
-assert_equals(targets.resolve(:c), [a, b, c])
+a = Location.new(:a, [t(:b)], [])
+b = Location.new(:b, [], [])
+targets = Locations.new [a, b]
+assert_equals(targets.resolve([:a, :b]), [a, b])
 
-targets = Targets.new
-targets.add(a)
-targets.add(b)
-targets.add(c)
-targets.add(d)
-targets.add(e)
-assert_equals(targets.resolve(:e), [a, b, c, d, e])
-assert_equals(targets.resolve(:d), [d])
+a = Location.new(:a, [t(:b)], [])
+b = Location.new(:b, [t(:c)], [])
+c = Location.new(:c, [], [])
+targets = Locations.new [c,b,a]
+assert_equals(targets.resolve([:a, :c]), [a, b, c])
 
-targets = Targets.new
-targets.add(a)
-targets.add(b)
-targets.add(f)
-assert_equals(targets.resolve([:b, :f]), [a, b, f])
+
+a = Location.new(:a, [t(:b)], [])
+b = Location.new(:b, [t(:c)], [])
+c = Location.new(:c, [t(:d)], [])
+d = Location.new(:d, [t(:e)], [])
+e = Location.new(:e, [], [])
+targets = Locations.new [a,b,c,d,e]
+assert_equals(targets.resolve([:a, :e]), [a, b, c, d, e])
+
+
+a = Location.new(:a, [t(:b), t(:f)], [])
+b = Location.new(:b, [t(:c), t(:a)], [])
+c = Location.new(:c, [t(:b)], [])
+f = Location.new(:f, [], [])
+assert_equals(Locations.new([a,b,c,f]).resolve([:a, :c, :f]), [a, b, c, b, a, f])

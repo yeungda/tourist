@@ -15,6 +15,8 @@ One nice feature of this approach is that if you had infinite machines, the test
 For those without huge infrastructure for scaling testing, a journey might allow more to be done with less. A journey might look something more like this:
 a -> b -> c -> d
 
+Is thinking in terms of states a useful thing? I think it is progress when we are thinking in these terms because it is clearer than a script as to the value of the testing.
+
 # What are you trying to do?
 
 Acceptance Test Journeys are considered a way to reduce this inefficiency by combining many similar tests into one. I think it is clunky to implement journies in current tooling such as cucumber or jbehave. So I'm trying trying to solve some of the problems in scaling a testing suite. I'm trying out a number of ideas to help such as:

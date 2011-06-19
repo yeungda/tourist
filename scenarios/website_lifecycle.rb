@@ -1,5 +1,5 @@
 scenario :website_lifecycle do |users|
-  users[:author].visit :successfully_created_article
+  users[:author].visit [:successfully_created_article, :admin_articles]
   users[:reader].visit :articles
   users.values.each &:done
 end

@@ -2,22 +2,20 @@ require "selenium-webdriver"
 
 class User
 
-  def initialize(name, targets, role, user_data, observers)
+  def initialize(name, locations, role, user_data)
     @name = name
-    @targets = targets
+    @locations = locations
     @role = role
     @user_data = user_data
-    @observers = observers
   end
 
-  def visit(locations)
+  def visit(destinations)
     @browser ||= Selenium::WebDriver.for :firefox
-    locations = [locations] unless locations.respond_to? :each
+    destinations = [destinations] unless destinations.respond_to? :each
 
-    @targets.resolve(locations).each do |location|
+    @locations.resolve(destinations).each do |location|
       puts "#{@name}\tvisiting #{location.name}"
       location.visit(@browser, @user_data.yield)
-      @observers.observe(location.name, @browser)
     end
   end
 

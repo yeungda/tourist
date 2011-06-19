@@ -5,7 +5,7 @@ class Targets
     @dependencies = {}
   end
 
-  def add(target)
+  def add(location)
     @dependencies[target.name] = target
   end
 

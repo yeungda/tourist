@@ -1,36 +1,33 @@
-require File.dirname(__FILE__) + '/targets.rb'
-require File.dirname(__FILE__) + '/scenario.rb'
-require File.dirname(__FILE__) + '/observers.rb'
-
-@scenarios = []
-@targets = Targets.new
-@blackbox = Blackbox.new
-@observers = Observers.new(@blackbox)
+@world = {
+  :scenarios => [],
+  :locations => {},
+  :users => []
+}
 
 def scenario(name, &block)
   # create Users
   # execute block
-  @scenarios << Scenario.new(name, block)
+  @world[:scenarios] << {:name => name, :block => block}
 end
 
 def location(name, &block)
   @current_location = name
+  @world[:locations][@current_location] = {:block => block, :transitions => [], :observations => []}
   block.yield
   @current_location = nil
 end
 
 def to(name, &block)
-  @targets.add(Target.new(name, [@current_location], block))
+  @world[:locations][@current_location][:transitions] << {:destination => name, :block => block}
 end
 
 def observations(&block)
-  @observers.add(Observer.new(@current_location, block))
+  @world[:locations][@current_location][:observations] << {:block => block}
 end
 
 def user(name, options, &user_data)
   #options has :role
   raise 'name is mandatory' if name.nil?
   raise ':role option is mandatory' if options[:role].nil?
-  @users ||= {}
-  @users[name] = User.new(name, @targets, options[:role], user_data, @observers)
+  @world[:users] << {:name => name, :role => options[:role], :data => user_data.yield}
 end

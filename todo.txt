@@ -1,1 +1,14 @@
+# Plan
 # add exception when target name clash detected
+# are observers creating too much data?
+# interactive mode
+# good error messages for misuse of dsl?
+# validation that looks something like this:
+validate :website_lifecycle do |blackbox|
+  blackbox[:super_administrator][:successfully_updated_website][:success].should == true
+  blackbox[:super_administrator][:successfully_updated_website][:message].should == 'website created successfully'
+  blackbox[:md_at_ray_white][:successfully_updated_website][:success].should == true
+  blackbox[:ray_white_prospective_buyer].first[:home][:success].should == true
+  blackbox[:ray_white_prospective_buyer].first[:quick_search][:success].should == true
+end
+

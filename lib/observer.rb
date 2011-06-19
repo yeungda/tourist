@@ -1,12 +1,10 @@
 class Observer
-  attr_reader :location
 
-  def initialize(location, block)
-    @location = location
+  def initialize(block)
     @block = block
   end
 
-  def observe(browser, blackbox)
+  def observe(location, browser, blackbox)
     blackbox.log(location, @block.yield(browser))
   end
 end
