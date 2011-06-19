@@ -23,7 +23,7 @@ end
 )
 
 @users = @world[:users].inject({}) {|users, user| 
-  users.merge({user[:name] => User.new(user[:name], @locations, user[:role], user[:user_data])})
+  users.merge({user[:name] => User.new(user[:name], @locations, user[:role], user[:data])})
 }
 
 @scenarios.each do |scenario|

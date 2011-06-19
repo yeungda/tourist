@@ -12,7 +12,7 @@ end
 
 def location(name, &block)
   @current_location = name
-  @world[:locations][@current_location] = {:block => block, :transitions => [], :observations => []}
+  @world[:locations][@current_location] = {:name => name, :block => block, :transitions => [], :observations => []}
   block.yield
   @current_location = nil
 end

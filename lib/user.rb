@@ -12,10 +12,15 @@ class User
   def visit(destinations)
     @browser ||= Selenium::WebDriver.for :firefox
     destinations = [destinations] unless destinations.respond_to? :each
+    path = @locations.resolve(destinations)
+    steps = path.zip(path.last(path.size - 1))
+    steps.pop
 
-    @locations.resolve(destinations).each do |location|
-      puts "#{@name}\tvisiting #{location.name}"
-      location.visit(@browser, @user_data.yield)
+    steps.each do |step|
+      from = step.first
+      to = step.last
+      puts "#{@name}\tvisiting #{to.name}"
+      from.visit(to, @browser, @user_data)
     end
   end
 

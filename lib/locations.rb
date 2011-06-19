@@ -11,9 +11,11 @@ class Locations
       index[location.name] = location
       index
     }
+    puts "locations #{locations}"
   end
 
   def resolve(destinations)
+    puts "destinations are #{destinations}"
     destinations = destinations.map {|destination| @index[destination]}
     return [destinations.first] if destinations.size == 1
     next_destinations = destinations.last(destinations.size - 1)
