@@ -1,4 +1,4 @@
-user :author, :role => :administrator do
+user :author do
   {
     :url => 'http://localhost:3000/admin',
     :email_address => 'admin@example.com',

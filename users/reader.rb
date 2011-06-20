@@ -1,4 +1,4 @@
-user :reader, :role => :anonymous do
+user :reader do
   {
     :url => 'http://localhost:3000',
   }

@@ -11,7 +11,6 @@ def observations(observations)
   observations.map {|observation| Observer.new(observation[:block])}
 end
 
-@scenarios = @world[:scenarios].map {|scenario| Scenario.new(scenario[:name], scenario[:block])}
 @locations = Locations.new(
   @world[:locations].map {|name, data| 
     Location.new(
@@ -22,9 +21,10 @@ end
   }
 )
 
+@scenarios = @world[:scenarios].map {|scenario| Scenario.new(scenario[:name], scenario[:block], @locations)}
 @blackbox = Blackbox.new
 @users = @world[:users].inject({}) {|users, user| 
-  users.merge({user[:name] => User.new(user[:name], @locations, user[:role], user[:data], @blackbox)})
+  users.merge({user[:name] => User.new(user[:name], user[:data], @blackbox)})
 }
 
 @scenarios.each do |scenario|

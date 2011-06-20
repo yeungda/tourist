@@ -25,9 +25,8 @@ def observations(&block)
   @world[:locations][@current_location][:observations] << {:block => block}
 end
 
-def user(name, options, &user_data)
+def user(name, &user_data)
   #options has :role
   raise 'name is mandatory' if name.nil?
-  raise ':role option is mandatory' if options[:role].nil?
-  @world[:users] << {:name => name, :role => options[:role], :data => user_data.yield}
+  @world[:users] << {:name => name, :data => user_data.yield}
 end
