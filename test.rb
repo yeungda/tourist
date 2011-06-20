@@ -30,4 +30,5 @@ end
 @scenarios.each do |scenario|
   scenario.play @users
 end
+
 @blackbox.print
