@@ -14,8 +14,13 @@ class Location
     @transitions.keys
   end
 
-  def visit(destination, browser, user_data)
+  def visit(destination, browser, user_data, blackbox)
     @transitions[destination.name].transition(browser, user_data)
+    destination.observe(browser, blackbox)
+  end
+
+  def observe(browser, blackbox)
+    @observations.each {|observation| observation.observe(name, browser, blackbox) }
   end
 
   def to_s

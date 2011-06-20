@@ -22,12 +22,12 @@ end
   }
 )
 
+@blackbox = Blackbox.new
 @users = @world[:users].inject({}) {|users, user| 
-  users.merge({user[:name] => User.new(user[:name], @locations, user[:role], user[:data])})
+  users.merge({user[:name] => User.new(user[:name], @locations, user[:role], user[:data], @blackbox)})
 }
 
 @scenarios.each do |scenario|
   scenario.play @users
 end
-@blackbox = Blackbox.new
 @blackbox.print

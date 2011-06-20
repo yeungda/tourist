@@ -2,11 +2,12 @@ require "selenium-webdriver"
 
 class User
 
-  def initialize(name, locations, role, user_data)
+  def initialize(name, locations, role, user_data, blackbox)
     @name = name
     @locations = locations
     @role = role
     @user_data = user_data
+    @blackbox = blackbox
   end
 
   def visit(destinations)
@@ -20,7 +21,7 @@ class User
       from = step.first
       to = step.last
       puts "#{@name}\tvisiting #{to.name}"
-      from.visit(to, @browser, @user_data)
+      from.visit(to, @browser, @user_data, @blackbox)
     end
   end
 
