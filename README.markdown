@@ -5,16 +5,19 @@ Journey Man is an experiment. It is trying to prove whether journeys can be used
 
 ## Usage
 Start the application we are going to test
->  `cd apps/cms`
 
+>  `cd apps/cms`
 >  `script/rails s`
 
 ### Calculate the plan
 >  `ruby test.rb plan`
+
 ### Execute the plan
 >  `ruby test.rb execute`
+
 ### Print the Observations
 >  `ruby test.rb print`
+
 ### Validate the observations
 >  `ruby test.rb validate`
 
