@@ -1,9 +1,23 @@
 # Journey Man
 
 # What?
-
 Journey Man is an experiment. It is trying to prove whether journeys can be used to help solve some of the issues we have in scaling testing suites.
 
+# Usage
+Start the application we are going to test
+  cd apps/cms
+  script/rails s
+
+## Calculate the plan
+  ruby test.rb plan
+## Execute the plan
+  ruby test.rb execute
+## Print the Observations
+  ruby test.rb print
+## Validate the observations
+  ruby test.rb validate
+
+# What is interesting about this?
 Here is some speculation about why this might be interesting
 
 ## Intention
