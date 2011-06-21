@@ -11,17 +11,14 @@ class Locations
       index[location.name] = location
       index
     }
-    puts "locations #{locations}"
   end
 
   def resolve(destinations)
-    puts "destinations are #{destinations}"
     destinations = destinations.map {|destination| @index[destination]}
     return [destinations.first] if destinations.size == 1
     next_destinations = destinations.last(destinations.size - 1)
     waypoints = destinations.zip(next_destinations)
     waypoints.pop
-    puts "waypoints are: #{waypoints}"
 
     [destinations.first] + waypoints.map do |waypoint|
       resolve_single(waypoint.first, waypoint.last)
@@ -31,7 +28,6 @@ class Locations
   private
 
   def resolve_single(start, finish)
-    puts "resolving #{start.to_s} to #{finish.to_s}"
     location_to_previous = dijkstra(start)
     previous = finish
     path = []

@@ -5,16 +5,20 @@ class Scenario
     @locations = locations
   end
 
-  def play(users)
-    puts "playing scenario #{@name}"
+  def plan
     plan = @block.yield
     itinerary = plan.map {|item| 
       {:user_name => item[:user_name], :journey => @locations.resolve(item[:intention])}
     }
-    puts "itinerary is: #{itinerary.inspect}"
-    itinerary.each {|item|
-      users[item[:user_name]].visit(item[:journey])
-    }
-    users.values.each &:done
+    print_journey_plan(itinerary)
+    Plan.new(itinerary)
+  end
+
+  def print_journey_plan(itinerary)
+    puts "* Plan: #{@name} "
+    itinerary.each do |individual|
+      journey = individual[:journey].map {|location| location.to_s}.join("\n*** ")
+      puts "** User: #{individual[:user_name]}\n*** #{journey}"
+    end
   end
 end
