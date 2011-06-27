@@ -36,6 +36,7 @@ class Main
   def graph_plan
     plans = plan()
   end
+
   def execute
     plan().map {|plan| plan.execute(@users)}
   end

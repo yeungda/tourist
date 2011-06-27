@@ -1,4 +1,8 @@
-location :anonymous_start do
+location :start do
+  to :log_in do |browser, data|
+    browser.navigate.to data[:url]
+  end
+
   to :home do |browser, data|
     browser.navigate.to data[:url]
   end

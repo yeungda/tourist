@@ -6,7 +6,7 @@ scenario :website_lifecycle do
     },
     {
       :user_name => :reader,
-      :intention => [:anonymous_start, :articles]
+      :intention => [:start, :articles]
     }
   ]
 end

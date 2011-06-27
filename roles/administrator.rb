@@ -1,9 +1,3 @@
-location :start do
-  to :log_in do |browser, data|
-    browser.navigate.to data[:url]
-  end
-end
-
 location :log_in do
   to :log_in_failed do |browser, data|
     browser.find_element(:id => 'admin_user_email').send_keys data[:email_address]
