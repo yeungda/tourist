@@ -64,3 +64,9 @@ Acceptance Test Journeys are considered a way to reduce this inefficiency by com
 * Delay assertions until after testing is done. This means seperating observation from assertion.
 * Users know things, so let's model it so that Users have data.
 * Scenarios that describe things users do at a macro level.
+
+## What do I need to know
+* What does my map look like?
+* What do my plans look like?
+* What is not yet covered, and what is the best journey to cover it with?
+

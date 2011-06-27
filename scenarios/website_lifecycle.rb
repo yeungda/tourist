@@ -15,7 +15,7 @@ scenario :unsuccessful_log_in do
   [
     {
       :user_name => :forgetful_author,
-      :intention => [:anonymous_start, :log_in_failed]
+      :intention => [:start, :log_in_failed]
     }
   ]
 end

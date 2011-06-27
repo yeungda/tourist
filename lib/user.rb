@@ -10,18 +10,26 @@ class User
 
   def visit(path)
     @browser ||= Selenium::WebDriver.for :firefox
-    steps = path.zip(path.last(path.size - 1))
-    steps.pop
-    print "#{@name}: "
+    steps = to_steps(path)
+    print "#{@name} -> "
     first = true
     steps.each do |step|
       from = step.first
       to = step.last
-      print (first ? "#{from.name}" : "") + " -> #{to.name}"
-      first = false
+      if first
+        print "#{from.name}"
+        first = false
+      end
+      print " -> #{to.name}"
       from.visit(to, @browser, @user_data, @blackbox)
     end
     print "\n"
+  end
+
+  def to_steps(path)
+    steps = path.zip(path.last(path.size - 1))
+    steps.pop
+    steps
   end
 
   def done

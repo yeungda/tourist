@@ -22,9 +22,20 @@ class Main
   end
 
   def plan
-    @scenarios.map &:plan
+    plans = @scenarios.map &:plan
+    planned_locations = plans.reduce(Set.new) {|set, plan| 
+      plan.destinations.each {|destination| set.add destination}
+      set
+    }
+    known_locations = @locations.destinations
+    unplanned_locations = known_locations - planned_locations.to_a
+    puts "unplanned locations (#{unplanned_locations.size}): #{unplanned_locations}"
+    plans
   end
 
+  def graph_plan
+    plans = plan()
+  end
   def execute
     plan().map {|plan| plan.execute(@users)}
   end

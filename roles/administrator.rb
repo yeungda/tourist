@@ -46,17 +46,30 @@ location :dashboard do
 end
 
 location :admin_articles do
-  to :successfully_created_article do |browser, data|
+
+  to :new_article do |browser, data|
     browser.find_element(:link_text => 'New Article').click
-    browser.find_element(:id => 'article_title').send_keys data[:article_title]
-    browser.find_element(:id => 'article_body').send_keys data[:article_body]
-    browser.find_element(:id => 'article_submit').click
   end
 
   observations do |browser|
     {
       :articles => browser.find_element(:css => 'table#articles').text
     }
+  end
+end
+
+location :new_article do
+
+  to :successfully_created_article do |browser, data|
+    browser.find_element(:id => 'article_title').send_keys data[:article_title]
+    browser.find_element(:id => 'article_body').send_keys data[:article_body]
+    browser.find_element(:id => 'article_submit').click
+  end
+
+  to :unsuccessfully_created_article do |browser, data|
+    browser.find_element(:id => 'article_title').send_keys data[:article_title]
+    browser.find_element(:id => 'article_body').send_keys data[:article_body]
+    browser.find_element(:id => 'article_submit').click
   end
 end
 
@@ -70,4 +83,8 @@ location :successfully_created_article do
       :article => browser.find_element(:css => '.attributes_table.article').text
     }
   end
+end
+
+location :unsuccessfully_created_article do 
+  
 end

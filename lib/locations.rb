@@ -13,6 +13,10 @@ class Locations
     }
   end
 
+  def destinations
+    @locations.map &:name
+  end
+
   def resolve(destinations)
     destinations = destinations.map {|destination| @index[destination]}
     return [destinations.first] if destinations.size == 1

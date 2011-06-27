@@ -1,0 +1,14 @@
+digraph G {
+  graph [center=true rankdir=TB]
+  node  [fontname=Helvetica]
+  { edge
+    start -> log_in
+      log_in -> {log_in_successful, log_in_failed} 
+    log_in_successful-> dashboard -> admin_articles -> new_article 
+      new_article -> {successfully_created_article, unsuccessfully_created_article } 
+    successfully_created_article -> admin_articles 
+  }
+  { edge
+    anonymous_start -> home -> articles
+  }
+}
