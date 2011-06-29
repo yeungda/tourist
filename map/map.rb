@@ -105,7 +105,9 @@ location :view_article do
   to :admin_articles do end
 end
 
-location :edit_article do end
+location :edit_article do
+  to :admin_articles do end
+end
 
 location :delete_article do 
   to :admin_articles do end
