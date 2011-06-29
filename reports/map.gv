@@ -9,6 +9,6 @@ digraph G {
     successfully_created_article -> admin_articles 
   }
   { edge
-    start -> home -> articles
+    start -> home -> articles -> article
   }
 }

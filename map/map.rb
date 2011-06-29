@@ -57,6 +57,8 @@ location :dashboard do
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
+
+  to :logged_out do end
 end
 
 location :admin_articles do
@@ -64,6 +66,18 @@ location :admin_articles do
   to :new_article do |browser, data|
     browser.find_element(:link_text => 'New Article').click
   end
+
+  to :view_article do end
+  to :edit_article do end
+  to :delete_article do end
+  to :admin_articles_by_created_at_asc do end
+  to :admin_articles_by_created_at_dsc do end
+  to :admin_articles_by_updated_at_asc do end
+  to :admin_articles_by_updated_at_dsc do end
+  to :admin_articles_by_body_asc do end
+  to :admin_articles_by_body_dsc do end
+  to :admin_articles_by_title_asc do end
+  to :admin_articles_by_title_dsc do end
 
   observations do |browser|
     {
@@ -87,6 +101,48 @@ location :new_article do
   end
 end
 
+location :view_article do 
+  to :admin_articles do end
+end
+
+location :edit_article do end
+
+location :delete_article do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_created_at_asc do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_created_at_dsc do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_updated_at_asc do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_updated_at_dsc do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_body_asc do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_body_dsc do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_title_asc do 
+  to :admin_articles do end
+end
+
+location :admin_articles_by_title_dsc do 
+  to :admin_articles do end
+end
+
 location :successfully_created_article do
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
@@ -102,3 +158,5 @@ end
 location :unsuccessfully_created_article do 
   
 end
+
+location :logged_out do end

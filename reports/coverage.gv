@@ -10,6 +10,9 @@ digraph G {
   { node [shape=hexagon style=filled color="#cccc00"]
     forgetful_author
   }
+  { node [style=filled color="#cccccc"]
+    unsuccessfully_created_article
+  }
   { edge [color="#ff0000"]
     author -> start -> log_in -> log_in_successful -> dashboard -> admin_articles -> new_article -> successfully_created_article -> admin_articles
   }
