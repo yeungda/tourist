@@ -1,8 +1,13 @@
 # Tourist
 
-## What?
+## About
+
+Tourist is a tool for creating journeys through system states. System states and transitions are mapped so users can navigate the system. Like tourists with cameras, users observe what they see on their journey. Observations are verified after the journies are complete to test whether the expected experience was had.
+
+## Objective
 
 Tourist is an experiment into automated journeys through systems. I hope to use it to answer the following questions:
+
 * Can journeys be used to test a CMS application?
 * Can journeys be used to test a wizard application?
 * Can journeys be used to test a restful web service?
