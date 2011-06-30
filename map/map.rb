@@ -70,18 +70,48 @@ location :admin_articles do
   to :view_article do end
   to :edit_article do end
   to :delete_article do end
-  to :admin_articles_by_created_at_asc do end
-  to :admin_articles_by_created_at_dsc do end
-  to :admin_articles_by_updated_at_asc do end
-  to :admin_articles_by_updated_at_dsc do end
-  to :admin_articles_by_body_asc do end
-  to :admin_articles_by_body_dsc do end
-  to :admin_articles_by_title_asc do end
-  to :admin_articles_by_title_dsc do end
+
+  to :admin_articles_by_created_at_asc do |browser, data|
+    click_and_wait(browser, :link_text => 'Created At')
+  end
+
+  to :admin_articles_by_created_at_dsc do |browser, data|
+    click_and_wait(browser, :link_text => 'Created At')
+  end
+
+  to :admin_articles_by_updated_at_asc do |browser, data|
+    click_and_wait(browser, :link_text => 'Updated At')
+  end
+
+  to :admin_articles_by_updated_at_dsc do |browser, data|
+    click_and_wait(browser, :link_text => 'Updated At')
+  end
+
+  to :admin_articles_by_body_asc do |browser, data|
+    click_and_wait(browser, :link_text => 'Body')
+  end
+
+  to :admin_articles_by_body_dsc do |browser, data|
+    click_and_wait(browser, :link_text => 'Body')
+  end
+
+  to :admin_articles_by_title_asc do |browser, data|
+    click_and_wait(browser, :link_text => 'Title')
+  end
+
+  to :admin_articles_by_title_dsc do |browser, data|
+    click_and_wait(browser, :link_text => 'Title')
+  end
+
+  def click_and_wait(browser, query)
+    browser.find_element(query).click
+    Selenium::WebDriver::Wait.new.until { browser.find_elements(:id => 'articles').size > 0 }
+  end
 
   observations do |browser|
     {
-      :articles => browser.find_element(:css => 'table#articles').text
+      :articles => browser.find_element(:css => 'table#articles').text,
+      :source => browser.page_source
     }
   end
 end

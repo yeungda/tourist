@@ -8,9 +8,9 @@ Tourist is a tool for creating journeys through system states. System states and
 
 Tourist is an experiment into automated journeys through systems. I hope to use it to answer the following questions:
 
-* Can journeys be used to test a CMS application?
-* Can journeys be used to test a wizard application?
-* Can journeys be used to test a restful web service?
+* Can journeys be used to efficiently achieve high coverage of states in a CMS application?
+* Can journeys be used to efficiently achieve high coverage of states a wizard application?
+* Can journeys be used to efficiently achieve high coverage of states a restful web service?
 * Can journeys be used to collect data about an application and reason about it? Can it be used to check whether a global stylesheet has unused styles? What about page load times or number of clicks required?
 
 ## Usage
@@ -89,6 +89,8 @@ a -> b -> c -> d
 Is thinking in terms of states a useful thing? I think it is progress when we are thinking in these terms because it is clearer than a script as to the value of the testing.
 
 ## What are you trying to do?
+
+I'm trying to understand whether by breaking down the problem of scaling a testing suite into smaller problems, we can achieve better scalability. Tourist attempts to use journeys to gain coverage of an application and observations to capture what happened for later. By doing so, we can temporally decouple concerns such as assertions from automation.
 
 Acceptance Test Journeys are considered a way to reduce this inefficiency by combining many similar tests into one. I think it is clunky to implement journies in current tooling such as cucumber or jbehave. So I'm trying trying to solve some of the problems in scaling a testing suite. I'm trying out a number of ideas to help such as:
 
