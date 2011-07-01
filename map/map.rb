@@ -67,9 +67,17 @@ location :admin_articles do
     browser.find_element(:link_text => 'New Article').click
   end
 
-  to :view_article do end
-  to :edit_article do end
-  to :delete_article do end
+  to :view_article do |browser, data|
+    browser.find_element(:link_text => 'View').click
+  end
+
+  to :edit_article do |browser, data|
+    browser.find_element(:link_text => 'Edit').click
+  end
+
+  to :delete_article do |browser, data|
+    browser.find_element(:link_text => 'Delete').click
+  end
 
   to :admin_articles_by_created_at_asc do |browser, data|
     click_and_wait(browser, :link_text => 'Created At')
@@ -103,17 +111,17 @@ location :admin_articles do
     click_and_wait(browser, :link_text => 'Title')
   end
 
-  def click_and_wait(browser, query)
-    browser.find_element(query).click
-    Selenium::WebDriver::Wait.new.until { browser.find_elements(:id => 'articles').size > 0 }
-  end
-
   observations do |browser|
     {
       :articles => browser.find_element(:css => 'table#articles').text,
-      :source => browser.page_source
+      #:source => browser.page_source
     }
   end
+end
+
+def click_and_wait(browser, query)
+  browser.find_element(query).click
+  Selenium::WebDriver::Wait.new.until { browser.find_elements(:id => 'articles').size > 0 }
 end
 
 location :new_article do
@@ -132,11 +140,20 @@ location :new_article do
 end
 
 location :view_article do 
-  to :admin_articles do end
+  to :admin_articles do |browser, data|
+    click_and_wait(browser, :link_text => 'Articles')
+  end
+
+  to :edit_article do |browser, data|
+    browser.find_element(:link_text => 'Edit Article').click
+  end
+
 end
 
 location :edit_article do
-  to :admin_articles do end
+  to :admin_articles do |browser, data|
+    click_and_wait(browser, :link_text => 'Articles')
+  end
 end
 
 location :delete_article do 

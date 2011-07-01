@@ -20,8 +20,8 @@ class User
         print "#{from.name}"
         first = false
       end
-      print " -> #{to.name}"
       from.visit(to, @browser, @user_data, @blackbox)
+      print " -> #{to.name}"
     end
     print "\n"
   end

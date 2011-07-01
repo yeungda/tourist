@@ -1,6 +1,7 @@
 # Plan
 # add exception when target name clash detected
 # are observers creating too much data?
+# error message when location defined twice (i wasted several minutes because of this)
 # interactive mode
 # good error messages for misuse of dsl?
 # validation that looks something like this:
