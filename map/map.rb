@@ -58,7 +58,7 @@ location :dashboard do
     browser.find_element(:link_text => 'Articles').click
   end
 
-  to :logged_out do 
+  to :logged_out do |browser, data|
     browser.find_element(:link_text => 'Logout').click
   end
 end
@@ -113,6 +113,10 @@ location :admin_articles do
     click_and_wait(browser, :link_text => 'Title')
   end
 
+  to :dashboard do |browser, data|
+    browser.find_element(:link_text => 'Dashboard').click
+  end
+
   observations do |browser|
     {
       :articles => browser.find_element(:css => 'table#articles').text,
@@ -123,6 +127,10 @@ end
 
 def click_and_wait(browser, query)
   browser.find_element(query).click
+  wait_for_articles(browser)
+end
+
+def wait_for_articles(browser)
   Selenium::WebDriver::Wait.new.until { browser.find_elements(:id => 'articles').size > 0 }
 end
 
@@ -171,6 +179,7 @@ end
 location :delete_article do 
   to :delete_article_success do |browser, data| 
     browser.switch_to.alert.accept
+    wait_for_articles(browser)
   end
 
   to :delete_article_cancel do |browser, data|
