@@ -58,7 +58,9 @@ location :dashboard do
     browser.find_element(:link_text => 'Articles').click
   end
 
-  to :logged_out do end
+  to :logged_out do 
+    browser.find_element(:link_text => 'Logout').click
+  end
 end
 
 location :admin_articles do
@@ -154,9 +156,39 @@ location :edit_article do
   to :admin_articles do |browser, data|
     click_and_wait(browser, :link_text => 'Articles')
   end
+
+  to :edit_article_successful do |browser, data|
+    browser.find_element(:id => 'article_title').send_keys data[:article_edit_title]
+    browser.find_element(:id => 'article_body').send_keys data[:article_edit_body]
+    browser.find_element(:id => 'article_submit').click
+  end
+end
+
+location :edit_article_successful do
+  to :view_article do end
 end
 
 location :delete_article do 
+  to :delete_article_success do |browser, data| 
+    browser.switch_to.alert.accept
+  end
+
+  to :delete_article_cancel do |browser, data|
+    browser.switch_to.alert.dismiss
+  end
+
+  observations do |browser|
+    {
+      :text => browser.switch_to.alert.text
+    }
+  end
+end
+
+location :delete_article_success do
+  to :admin_articles do end
+end
+
+location :delete_article_cancel do
   to :admin_articles do end
 end
 
