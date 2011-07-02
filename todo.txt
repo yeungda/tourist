@@ -1,4 +1,5 @@
 # Plan
+# sub states
 # add exception when target name clash detected
 # are observers creating too much data?
 # error message when location defined twice (i wasted several minutes because of this)

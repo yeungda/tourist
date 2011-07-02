@@ -105,4 +105,23 @@ Acceptance Test Journeys are considered a way to reduce this inefficiency by com
 * What is not yet covered, and what is the best journey to cover it with?
 
 # how do you model system state changes?
+# do we need sub states?
+
+## Strategy
+
+100% coverage in one journey?
+
+for happy path only
+* map states
+* map transitions
+* build journey
+
+for error cases
+* map states
+* map transitions
+* build journeys
+
+for multiple ways of doing things
+* build journeys
+
 

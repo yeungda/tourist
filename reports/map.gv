@@ -1,14 +1,38 @@
 digraph G {
   graph [center=true rankdir=TB]
   node  [fontname=Helvetica]
+  compound=true;
+
   { edge
-    start -> log_in
-      log_in -> {log_in_successful, log_in_failed} 
-    log_in_successful-> dashboard -> admin_articles -> new_article 
-      new_article -> {successfully_created_article, unsuccessfully_created_article } 
+    start -> log_in;
+    log_in -> {log_in_successful, log_in_failed};
+  }
+  { edge
+    start -> home -> articles -> article;
+  }
+
+  subgraph cluster_logged_in {
+    label= "logged_in";
+    style= "dashed";
+    color=purple;
+    log_in_successful -> dashboard -> admin_articles;
+    new_article -> {successfully_created_article, unsuccessfully_created_article } 
     successfully_created_article -> admin_articles 
+    subgraph cluster_admin_articles {
+      label="admin_articles";
+      admin_articles -> sorted_by_created_asc -> sorted_by_created_dsc;
+      admin_articles -> admin_articles_by_created_at_asc -> admin_articles_by_created_at_dsc
+      admin_articles -> admin_articles_by_updated_at_asc -> admin_articles_by_updated_at_dsc
+      admin_articles -> admin_articles_by_body_asc -> admin_articles_by_body_dsc
+      admin_articles -> admin_articles_by_title_asc -> admin_articles_by_title_dsc
+    }
+    admin_articles -> {new_article, view_article, edit_article, delete_article};
+    view_article -> edit_article;
+    edit_article -> edit_article_successful;
+    edit_article_successful -> view_article;
+    delete_article -> {delete_article_success, delete_article_cancel}
+    delete_article_cancel -> admin_articles;
   }
-  { edge
-    start -> home -> articles -> article
-  }
+
+  dashboard -> logged_out;
 }

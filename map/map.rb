@@ -245,8 +245,9 @@ location :successfully_created_article do
   end
 end
 
-location :unsuccessfully_created_article do 
-  
-end
+location :articles_filtered do end
+location :articles_filter_cleared do end
+
+location :unsuccessfully_created_article do end
 
 location :logged_out do end
