@@ -38,7 +38,7 @@ GEM
       abstract (>= 1.0.0)
     ffi (1.0.9)
     i18n (0.5.0)
-    json_pure (1.5.1)
+    json_pure (1.5.3)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     mail (2.2.19)
@@ -79,8 +79,8 @@ GEM
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.4)
-    selenium-webdriver (0.2.1)
-      childprocess (>= 0.1.7)
+    selenium-webdriver (0.2.2)
+      childprocess (>= 0.1.9)
       ffi (>= 1.0.7)
       json_pure
       rubyzip
@@ -96,4 +96,4 @@ DEPENDENCIES
   pqueue
   rails (= 3.0.8)
   ruby-debug19
-  selenium-webdriver
+  selenium-webdriver (= 0.2.2)
