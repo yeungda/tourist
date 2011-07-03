@@ -76,15 +76,17 @@ What if we just wrote down what we saw and checked it later? If something went w
 Test frameworks that focus on acceptance testing often repeat the same steps over and over again. Isn't once enough? I'm tired of slow, inefficient testing suites that look a lot like unit tests at a functional level.
 
 so if you had states a, b, c and d that you wanted to test, the execution would look like:
-a
-a -> b
-a -> c
-a -> d
+
+* a
+* a -> b
+* a -> c
+* a -> d
 
 One nice feature of this approach is that if you had infinite machines, the testing would take only as long as the longest test.
 
 For those without huge infrastructure for scaling testing, a journey might allow more to be done with less. A journey might look something more like this:
-a -> b -> c -> d
+
+* a -> b -> c -> d
 
 Is thinking in terms of states a useful thing? I think it is progress when we are thinking in these terms because it is clearer than a script as to the value of the testing.
 
@@ -112,6 +114,7 @@ Acceptance Test Journeys are considered a way to reduce this inefficiency by com
 100% coverage in one journey?
 
 for happy path only
+
 * map states
 * map transitions
 * build journey
