@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-Dir[File.dirname(__FILE__) + "/lib/main.rb"].each {|file| require file }
+Dir[File.dirname(__FILE__) + "/../../../lib/main.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/map/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/users/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/scenarios/*.rb"].each {|file| require file }
