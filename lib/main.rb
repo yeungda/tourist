@@ -2,16 +2,16 @@ Dir[File.dirname(__FILE__) + "/*.rb"].each {|file| require file }
 
 class Main
   def initialize(world)
-    @locations = Locations.new(
-      world[:locations].map {|name, data| 
-      Location.new(
+    @states = States.new(
+      world[:states].map {|name, data| 
+      State.new(
         data[:name],
         transitions(data[:transitions]), 
         observations(data[:observations])
       )
     })
 
-    @scenarios = world[:scenarios].map {|scenario| Scenario.new(scenario[:name], scenario[:block], @locations)}
+    @scenarios = world[:scenarios].map {|scenario| Scenario.new(scenario[:name], scenario[:block], @states)}
     @blackbox = Blackbox.new
     @users = world[:users].inject({}) {|users, user| 
       users.merge({user[:name] => User.new(user[:name], user[:data], @blackbox)})
@@ -20,13 +20,13 @@ class Main
 
   def plan
     plans = @scenarios.map &:plan
-    planned_locations = plans.reduce(Set.new) {|set, plan| 
+    planned_states = plans.reduce(Set.new) {|set, plan| 
       plan.destinations.each {|destination| set.add destination}
       set
     }
-    known_locations = @locations.destinations
-    unplanned_locations = known_locations - planned_locations.to_a
-    puts "unplanned locations (#{unplanned_locations.size}): #{unplanned_locations}"
+    known_states = @states.destinations
+    unplanned_states = known_states - planned_states.to_a
+    puts "unplanned states (#{unplanned_states.size}): #{unplanned_states}"
     plans
   end
 

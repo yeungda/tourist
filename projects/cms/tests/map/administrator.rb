@@ -1,4 +1,4 @@
-location :log_in do
+state :log_in do
   to :log_in_failed do |browser, data|
     browser.find_element(:id => 'admin_user_email').send_keys data[:email_address]
     browser.find_element(:id => 'admin_user_password').send_keys data[:password]
@@ -16,7 +16,7 @@ location :log_in do
   end
 end
 
-location :log_in_failed do
+state :log_in_failed do
   observations do |browser|
     {
       :page_title => browser.title,
@@ -25,7 +25,7 @@ location :log_in_failed do
   end
 end
 
-location :log_in_successful do
+state :log_in_successful do
   to :dashboard do end
 
   observations do |browser|
@@ -33,13 +33,13 @@ location :log_in_successful do
   end
 end
 
-location :dashboard do
+state :dashboard do
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
 end
 
-location :admin_articles do
+state :admin_articles do
 
   to :new_article do |browser, data|
     browser.find_element(:link_text => 'New Article').click
@@ -52,7 +52,7 @@ location :admin_articles do
   end
 end
 
-location :new_article do
+state :new_article do
 
   to :successfully_created_article do |browser, data|
     browser.find_element(:id => 'article_title').send_keys data[:article_title]
@@ -67,7 +67,7 @@ location :new_article do
   end
 end
 
-location :successfully_created_article do
+state :successfully_created_article do
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
@@ -79,6 +79,6 @@ location :successfully_created_article do
   end
 end
 
-location :unsuccessfully_created_article do 
+state :unsuccessfully_created_article do 
   
 end

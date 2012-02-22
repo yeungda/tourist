@@ -1,4 +1,4 @@
-location :start do
+state :start do
   to :log_in do |browser, data|
     browser.navigate.to data[:url]
   end
@@ -8,11 +8,11 @@ location :start do
   end
 end
 
-location :home do
+state :home do
   to :articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
 end
 
-location :articles do
+state :articles do
 end

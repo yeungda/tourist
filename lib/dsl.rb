@@ -1,6 +1,6 @@
 @world = {
   :scenarios => [],
-  :locations => {},
+  :states => {},
   :users => []
 }
 
@@ -10,19 +10,19 @@ def scenario(name, &block)
   @world[:scenarios] << {:name => name, :block => block}
 end
 
-def location(name, &block)
-  @current_location = name
-  @world[:locations][@current_location] = {:name => name, :block => block, :transitions => [], :observations => []}
+def state(name, &block)
+  @current_state = name
+  @world[:states][@current_state] = {:name => name, :block => block, :transitions => [], :observations => []}
   block.yield
-  @current_location = nil
+  @current_state = nil
 end
 
 def to(name, &block)
-  @world[:locations][@current_location][:transitions] << {:destination => name, :block => block}
+  @world[:states][@current_state][:transitions] << {:destination => name, :block => block}
 end
 
 def observations(&block)
-  @world[:locations][@current_location][:observations] << {:block => block}
+  @world[:states][@current_state][:observations] << {:block => block}
 end
 
 def user(name, &user_data)

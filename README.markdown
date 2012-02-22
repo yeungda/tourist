@@ -13,6 +13,44 @@ Tourist is an experiment into automated journeys through systems. I hope to use 
 * Can journeys be used to efficiently achieve high coverage of states a restful web service?
 * Can journeys be used to collect data about an application and reason about it? Can it be used to check whether a global stylesheet has unused styles? What about page load times or number of clicks required?
 
+## Why?
+
+Consider the following unit test:
+  it should do something
+    given I these actions have been completed, where a = 1 and b = 2
+    when i do something
+    then the result should be 10
+
+i only have to read these few lines to understand what the test is doing.  The intent of the test is captured in the test name. The actions I need to take are captured in the given and when. I can see all the relevant inputs that are required for the test scenario to happen. And I can see exactly what we were expecting to happen.
+All the concerns that matter, the actions, inputs, expectations and intent, are tightly coupled, as one is mixed with the other in code and also temporally. A unit test is the coupling of all the concerns that matter. 
+
+Just because it works for unit tests, does not mean the same applies at a functional level. What's good for the goose, is not necessarily good for then gander.
+
+in functional tests, the given actions often take a very long time. They are often also very complex. In a perfect world, we would simply parallelise all tests so the testing takes as long as the longest test. This is sadly very far from reality. Projects pay for the time it takes to run functional tests in spades. Whether it's running them, or maintaining them.
+
+Functional tests often require a number of steps to be taken to get to a state that they can test. For example, we must first log in and create a blog post before we can see it on the blog. Unit tests rarely have so many steps to take before they can be executed. 
+
+By shoehorning our unit testing paradigm onto functional tests, I think we are missing the point. A real user doesn't usually doesn't use an application and only try one small piece of functionality, they usually want to complete a process of some kind. Unit tests at a functional level do not simulate real user behaviour.
+
+Some say that tests should be consolidated into feature level journeys. If we were to use the unit testing paradigm to build these, it might look like a very very long procedure. And I think as we build a more higher level test, we lose the intent of what we are testing, since our single test name cannot describe all the things that are happening adequately.
+
+Unit tests don't scale to journeys. As is common practise in other endeavours, what if we attempted to separate concerns?
+
+journeys
+  users
+    input data
+  itinerary
+states
+  transitions
+  observations
+  states 
+    transitions
+    observations
+    states ...
+verifications
+  intent
+  expected outputs
+
 ## Usage
 Start the application we are going to test
 

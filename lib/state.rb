@@ -1,4 +1,4 @@
-class Location
+class State
   attr_reader :name
   def initialize(name, transitions, observations)
     @name = name

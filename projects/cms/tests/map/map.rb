@@ -1,4 +1,4 @@
-location :start do
+state :start do
   to :log_in do |browser, data|
     browser.navigate.to data[:url]
   end
@@ -8,17 +8,17 @@ location :start do
   end
 end
 
-location :home do
+state :home do
   to :articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
 end
 
-location :articles do
+state :articles do
 
 end
 
-location :log_in do
+state :log_in do
   to :log_in_failed do |browser, data|
     browser.find_element(:id => 'admin_user_email').send_keys data[:email_address]
     browser.find_element(:id => 'admin_user_password').send_keys data[:password]
@@ -36,7 +36,7 @@ location :log_in do
   end
 end
 
-location :log_in_failed do
+state :log_in_failed do
   observations do |browser|
     {
       :page_title => browser.title,
@@ -45,7 +45,7 @@ location :log_in_failed do
   end
 end
 
-location :log_in_successful do
+state :log_in_successful do
   to :dashboard do end
 
   observations do |browser|
@@ -53,7 +53,7 @@ location :log_in_successful do
   end
 end
 
-location :dashboard do
+state :dashboard do
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
@@ -63,7 +63,7 @@ location :dashboard do
   end
 end
 
-location :admin_articles do
+state :admin_articles do
 
   to :new_article do |browser, data|
     browser.find_element(:link_text => 'New Article').click
@@ -134,7 +134,7 @@ def wait_for_articles(browser)
   Selenium::WebDriver::Wait.new.until { browser.find_elements(:id => 'articles').size > 0 }
 end
 
-location :new_article do
+state :new_article do
 
   to :successfully_created_article do |browser, data|
     browser.find_element(:id => 'article_title').send_keys data[:article_title]
@@ -149,7 +149,7 @@ location :new_article do
   end
 end
 
-location :view_article do 
+state :view_article do 
   to :admin_articles do |browser, data|
     click_and_wait(browser, :link_text => 'Articles')
   end
@@ -160,7 +160,7 @@ location :view_article do
 
 end
 
-location :edit_article do
+state :edit_article do
   to :admin_articles do |browser, data|
     click_and_wait(browser, :link_text => 'Articles')
   end
@@ -172,11 +172,11 @@ location :edit_article do
   end
 end
 
-location :edit_article_successful do
+state :edit_article_successful do
   to :view_article do end
 end
 
-location :delete_article do 
+state :delete_article do 
   to :delete_article_success do |browser, data| 
     browser.switch_to.alert.accept
     wait_for_articles(browser)
@@ -193,47 +193,47 @@ location :delete_article do
   end
 end
 
-location :delete_article_success do
+state :delete_article_success do
   to :admin_articles do end
 end
 
-location :delete_article_cancel do
+state :delete_article_cancel do
   to :admin_articles do end
 end
 
-location :admin_articles_by_created_at_asc do 
+state :admin_articles_by_created_at_asc do 
   to :admin_articles do end
 end
 
-location :admin_articles_by_created_at_dsc do 
+state :admin_articles_by_created_at_dsc do 
   to :admin_articles do end
 end
 
-location :admin_articles_by_updated_at_asc do 
+state :admin_articles_by_updated_at_asc do 
   to :admin_articles do end
 end
 
-location :admin_articles_by_updated_at_dsc do 
+state :admin_articles_by_updated_at_dsc do 
   to :admin_articles do end
 end
 
-location :admin_articles_by_body_asc do 
+state :admin_articles_by_body_asc do 
   to :admin_articles do end
 end
 
-location :admin_articles_by_body_dsc do 
+state :admin_articles_by_body_dsc do 
   to :admin_articles do end
 end
 
-location :admin_articles_by_title_asc do 
+state :admin_articles_by_title_asc do 
   to :admin_articles do end
 end
 
-location :admin_articles_by_title_dsc do 
+state :admin_articles_by_title_dsc do 
   to :admin_articles do end
 end
 
-location :successfully_created_article do
+state :successfully_created_article do
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
@@ -245,9 +245,9 @@ location :successfully_created_article do
   end
 end
 
-location :articles_filtered do end
-location :articles_filter_cleared do end
+state :articles_filtered do end
+state :articles_filter_cleared do end
 
-location :unsuccessfully_created_article do end
+state :unsuccessfully_created_article do end
 
-location :logged_out do end
+state :logged_out do end

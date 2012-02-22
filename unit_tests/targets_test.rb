@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../lib/locations.rb')
+require File.expand_path(File.dirname(__FILE__) + '/../lib/states.rb')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/transition.rb')
 
 def assert_equals(actual, expected)
@@ -11,39 +11,39 @@ def t(destination)
   Transition.new(destination, lambda {})
 end
 
-a = Location.new(:a, [t(:b)], [])
-b = Location.new(:b, [t(:c)], [])
-c = Location.new(:c, [t(:d)], [])
-d = Location.new(:d, [t(:e)], [])
-e = Location.new(:e, [], [])
-f = Location.new(:f, [], [])
+a = State.new(:a, [t(:b)], [])
+b = State.new(:b, [t(:c)], [])
+c = State.new(:c, [t(:d)], [])
+d = State.new(:d, [t(:e)], [])
+e = State.new(:e, [], [])
+f = State.new(:f, [], [])
 
-targets = Locations.new [a]
+targets = States.new [a]
 assert_equals(targets.resolve([:a]), [a])
 
-a = Location.new(:a, [t(:b)], [])
-b = Location.new(:b, [], [])
-targets = Locations.new [a, b]
+a = State.new(:a, [t(:b)], [])
+b = State.new(:b, [], [])
+targets = States.new [a, b]
 assert_equals(targets.resolve([:a, :b]), [a, b])
 
-a = Location.new(:a, [t(:b)], [])
-b = Location.new(:b, [t(:c)], [])
-c = Location.new(:c, [], [])
-targets = Locations.new [c,b,a]
+a = State.new(:a, [t(:b)], [])
+b = State.new(:b, [t(:c)], [])
+c = State.new(:c, [], [])
+targets = States.new [c,b,a]
 assert_equals(targets.resolve([:a, :c]), [a, b, c])
 
 
-a = Location.new(:a, [t(:b)], [])
-b = Location.new(:b, [t(:c)], [])
-c = Location.new(:c, [t(:d)], [])
-d = Location.new(:d, [t(:e)], [])
-e = Location.new(:e, [], [])
-targets = Locations.new [a,b,c,d,e]
+a = State.new(:a, [t(:b)], [])
+b = State.new(:b, [t(:c)], [])
+c = State.new(:c, [t(:d)], [])
+d = State.new(:d, [t(:e)], [])
+e = State.new(:e, [], [])
+targets = States.new [a,b,c,d,e]
 assert_equals(targets.resolve([:a, :e]), [a, b, c, d, e])
 
 
-a = Location.new(:a, [t(:b), t(:f)], [])
-b = Location.new(:b, [t(:c), t(:a)], [])
-c = Location.new(:c, [t(:b)], [])
-f = Location.new(:f, [], [])
-assert_equals(Locations.new([a,b,c,f]).resolve([:a, :c, :f]), [a, b, c, b, a, f])
+a = State.new(:a, [t(:b), t(:f)], [])
+b = State.new(:b, [t(:c), t(:a)], [])
+c = State.new(:c, [t(:b)], [])
+f = State.new(:f, [], [])
+assert_equals(States.new([a,b,c,f]).resolve([:a, :c, :f]), [a, b, c, b, a, f])
