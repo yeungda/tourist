@@ -1,4 +1,4 @@
-class Scenario
+class Journey
   def initialize(name, block, locations)
     @name = name
     @block = block

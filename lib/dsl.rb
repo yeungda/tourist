@@ -1,13 +1,13 @@
 @world = {
-  :scenarios => [],
+  :journeys => [],
   :states => {},
   :users => []
 }
 
-def scenario(name, &block)
+def journey(name, &block)
   # create Users
   # execute block
-  @world[:scenarios] << {:name => name, :block => block}
+  @world[:journeys] << {:name => name, :block => block}
 end
 
 def state(name, &block)

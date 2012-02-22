@@ -11,7 +11,7 @@ class Main
       )
     })
 
-    @scenarios = world[:scenarios].map {|scenario| Scenario.new(scenario[:name], scenario[:block], @states)}
+    @journeys = world[:journeys].map {|journey| Journey.new(journey[:name], journey[:block], @states)}
     @blackbox = Blackbox.new
     @users = world[:users].inject({}) {|users, user| 
       users.merge({user[:name] => User.new(user[:name], user[:data], @blackbox)})
@@ -19,7 +19,7 @@ class Main
   end
 
   def plan
-    plans = @scenarios.map &:plan
+    plans = @journeys.map &:plan
     planned_states = plans.reduce(Set.new) {|set, plan| 
       plan.destinations.each {|destination| set.add destination}
       set

@@ -1,4 +1,4 @@
-scenario :website_lifecycle do
+journey :website_lifecycle do
   [ 
     {
       :user_name => :author,
@@ -33,7 +33,7 @@ scenario :website_lifecycle do
   ]
 end
 
-scenario :unsuccessful_log_in do
+journey :unsuccessful_log_in do
   [
     {
       :user_name => :forgetful_author,
