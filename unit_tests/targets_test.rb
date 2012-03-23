@@ -1,9 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../lib/states.rb')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/transition.rb')
-
-def assert_equals(actual, expected)
-  raise "expected #{expected.to_s}, got #{actual.to_s}" unless expected == actual
-end
+require File.expand_path(File.dirname(__FILE__) + '/assert.rb')
 
 do_nothing = lambda {}
 

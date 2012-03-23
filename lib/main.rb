@@ -1,4 +1,5 @@
 Dir[File.dirname(__FILE__) + "/*.rb"].each {|file| require file }
+require 'Set'
 
 class Main
   def initialize(world)
@@ -32,6 +33,20 @@ class Main
 
   def graph_plan
     plans = plan()
+  end
+
+
+  def algebra
+    plans = plan()
+    unique_destinations = plans.inject(Set.new) {|total, plan| total + plan.destinations}
+    dict = Identifier.hash_with_identifier unique_destinations.size
+    plans_shorthand = plans.map {|plan| plan.destinations.to_a.map {|destination| 
+      val = dict[destination]
+      dict[destination] = val
+      val
+    }.join('+')}
+    puts(dict.map {|destination,id| "#{id} = #{destination}"}.join("\n"))
+    puts plans_shorthand
   end
 
   def execute
