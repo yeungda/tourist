@@ -19,49 +19,42 @@ class Main
     }
   end
 
-  def plan
-    plans = @journeys.map &:plan
-    planned_states = plans.reduce(Set.new) {|set, plan| 
-      plan.destinations.each {|destination| set.add destination}
-      set
-    }
-    known_states = @states.destinations
-    unplanned_states = known_states - planned_states.to_a
-    puts "unplanned states (#{unplanned_states.size}): #{unplanned_states}"
-    plans
-  end
+  def describe
+    def unplanned(plans)
+      planned_states = plans.reduce(Set.new) {|set, plan| 
+        plan.destinations.each {|destination| set.add destination}
+        set
+      }
+      known_states = @states.destinations
+      unplanned_states = known_states - planned_states.to_a
+      "**** UNPLANNED STATES (#{unplanned_states.size}) ****\n#{unplanned_states.join("\n")}"
+    end
 
-  def graph_plan
+    def algebra(plans)
+      unique_destinations = plans.inject(Set.new) {|total, plan| total + plan.destinations}
+      dict = Identifier.hash_with_identifier unique_destinations.size
+      plans_shorthand = plans.map {|plan| plan.destinations.to_a.map {|destination| 
+        val = dict[destination]
+        dict[destination] = val
+        val
+      }.join('+')}.join("\n")
+      reference = dict.map {|destination,id| "#{id} = #{destination}"}.join("\n")
+      "**** ALGRBRAIC VIEW ****\n#{reference}\n#{plans_shorthand}"
+    end
     plans = plan()
-  end
-
-
-  def algebra
-    plans = plan()
-    unique_destinations = plans.inject(Set.new) {|total, plan| total + plan.destinations}
-    dict = Identifier.hash_with_identifier unique_destinations.size
-    plans_shorthand = plans.map {|plan| plan.destinations.to_a.map {|destination| 
-      val = dict[destination]
-      dict[destination] = val
-      val
-    }.join('+')}
-    puts(dict.map {|destination,id| "#{id} = #{destination}"}.join("\n"))
-    puts plans_shorthand
+    puts([algebra(plans), unplanned(plans)].join("\n\n"))
   end
 
   def execute
     plan().map {|plan| plan.execute(@users)}
-  end
-
-  def print
-    execute()
     @blackbox.print
   end
 
-  def validate
-  end
-
   private
+
+  def plan
+    @journeys.map &:plan
+  end
 
   def transitions(transitions)
     transitions.map {|transition| Transition.new(transition[:destination], transition[:block])}
