@@ -19,17 +19,17 @@ class Main
   end
 
   def describe
-    def unplanned(plans)
+    def unplanned_view(plans)
       planned_states = plans.reduce(Set.new) {|set, plan| 
         plan.destinations.each {|destination| set.add destination}
         set
       }
       known_states = @states.destinations
       unplanned_states = known_states - planned_states.to_a
-      "**** UNPLANNED STATES (#{unplanned_states.size}) ****\n#{unplanned_states.join("\n")}"
+      "**** UNPLANNED (#{unplanned_states.size}) ****\n#{unplanned_states.join("\n")}"
     end
 
-    def algebra(plans)
+    def algebra_view(plans)
       unique_destinations = plans.inject(Set.new) {|total, plan| total + plan.destinations}
       dict = Identifier.hash_with_identifier unique_destinations.size
       plans_shorthand = plans.map {|plan| plan.destinations.to_a.map {|destination| 
@@ -38,10 +38,15 @@ class Main
         val
       }.join('+')}.join("\n")
       reference = dict.map {|destination,id| "#{id} = #{destination}"}.join("\n")
-      "**** ALGRBRAIC VIEW ****\n#{reference}\n#{plans_shorthand}"
+      "**** SHORTHAND PLANS ****\n#{reference}\n#{plans_shorthand}"
+    end
+
+    def plan_view(plans)
+      all_journies = plans.map {|plan| plan.destinations.to_a.join("\n")}.join("\n\n")
+      "**** PLANS ****\n#{all_journies}"
     end
     plans = plan()
-    puts([algebra(plans), unplanned(plans)].join("\n\n"))
+    puts([plan_view(plans), algebra_view(plans), unplanned_view(plans)].join("\n\n"))
   end
 
   def execute
