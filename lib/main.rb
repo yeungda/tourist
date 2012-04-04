@@ -1,5 +1,4 @@
 Dir[File.dirname(__FILE__) + "/*.rb"].each {|file| require file }
-require 'Set'
 
 class Main
   def initialize(world)
