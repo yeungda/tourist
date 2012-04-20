@@ -1,14 +1,14 @@
 require 'yaml'
 class Blackbox
   def initialize
-    @log = {} 
+    @log = []
   end
   def log(location, data)
-    @log.merge!({location => data})
+    @log << {'location' => location, 'observations' => data}
   end
 
   def print
-    puts "*******Blackbox Data*******"
+    puts "\n*******Blackbox Data*******"
     puts @log.to_yaml
   end
 end
