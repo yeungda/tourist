@@ -24,9 +24,10 @@ class States
     waypoints = destinations.zip(next_destinations)
     waypoints.pop
 
-    [destinations.first] + waypoints.map do |waypoint|
+    result = [destinations.first] + waypoints.map do |waypoint|
       resolve_single(waypoint.first, waypoint.last)
     end.flatten
+    result
   end
 
   private

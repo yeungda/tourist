@@ -3,13 +3,26 @@ journey :website_lifecycle do
     {
       :user_name => :author,
       :intention => [
-        :start, 
-        :successfully_created_article, 
+        :log_in_successful,
+        {
+          :context => :first,
+          :intention => [
+            :successfully_created_article,
+            :admin_articles, 
+            :view_article,
+            :edit_article_successful,
+          ]
+        },
         :admin_articles, 
-        :successfully_created_article, 
-        :admin_articles, 
-        :view_article,
-        :edit_article_successful,
+        {
+          :context => :second,
+          :intention => [
+            :successfully_created_article,
+            :admin_articles, 
+            :view_article,
+            :edit_article_successful
+          ]
+        },
         :delete_article_cancel,
         :delete_article_success,
         :admin_articles_by_created_at_asc,

@@ -89,15 +89,15 @@ end
 
 state :new_article do
 
-  to :successfully_created_article do |browser, data|
-    browser.find_element(:id => 'article_title').send_keys data[:article_title]
-    browser.find_element(:id => 'article_body').send_keys data[:article_body]
+  to :successfully_created_article do |browser, data, article|
+    browser.find_element(:id => 'article_title').send_keys data[:article_new][:title]
+    browser.find_element(:id => 'article_body').send_keys data[:article_new][:body]
     browser.find_element(:id => 'article_submit').click
   end
 
-  to :unsuccessfully_created_article do |browser, data|
-    browser.find_element(:id => 'article_title').send_keys data[:article_title]
-    browser.find_element(:id => 'article_body').send_keys data[:article_body]
+  to :unsuccessfully_created_article do |browser, data, article|
+    browser.find_element(:id => 'article_title').send_keys data[:article_new][:title]
+    browser.find_element(:id => 'article_body').send_keys data[:article_new][:body]
     browser.find_element(:id => 'article_submit').click
   end
 end
@@ -119,8 +119,8 @@ state :edit_article do
   end
 
   to :edit_article_successful do |browser, data|
-    browser.find_element(:id => 'article_title').send_keys data[:article_edit_title]
-    browser.find_element(:id => 'article_body').send_keys data[:article_edit_body]
+    browser.find_element(:id => 'article_title').send_keys data[:article_edit][:title]
+    browser.find_element(:id => 'article_body').send_keys data[:article_edit][:body]
     browser.find_element(:id => 'article_submit').click
   end
 end

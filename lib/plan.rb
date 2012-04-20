@@ -13,8 +13,17 @@ class Plan
 
   def destinations
     @itinerary.reduce(Set.new) {|set, item| 
-      item[:journey].each {|destination| set.add(destination.name)}
-      set
+      set + to_destinations(item[:journey])
+    }
+  end
+
+  def to_destinations(journey)
+    journey.flat_map {|item| 
+      if item.class == Hash 
+        to_destinations(item[:journey])
+      else
+        item.name
+      end
     }
   end
 
