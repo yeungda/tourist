@@ -10,7 +10,7 @@ class Journey
     itinerary = plan.map {|item| 
       {:user_name => item[:user_name], :journey => @states.resolve([:start]) + to_journey(item[:intention])}
     }
-    Plan.new(itinerary)
+    Plan.new(@name, itinerary)
   end
 
   def to_journey(intention, last_destination=:start)

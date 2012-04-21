@@ -12,9 +12,8 @@ class Main
     })
 
     @journeys = world[:journeys].map {|journey| Journey.new(journey[:name], journey[:block], @states)}
-    @blackbox = Blackbox.new
     @users = world[:users].inject({}) {|users, user| 
-      users.merge({user[:name] => User.new(user[:name], user[:data], @blackbox)})
+      users.merge({user[:name] => User.new(user[:name], user[:data] )})
     }
   end
 
@@ -51,7 +50,6 @@ class Main
 
   def execute
     plan().map {|plan| plan.execute(@users)}
-    @blackbox.print
   end
 
   private
