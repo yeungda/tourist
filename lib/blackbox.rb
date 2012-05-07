@@ -1,7 +1,7 @@
 require 'yaml'
 
 class Blackbox
-  LOG_PATH = './reports/blackbox.yaml'
+  LOG_PATH = './reports/observations.yaml'
   def initialize(journey_name=nil, context=[])
     @journey_name = journey_name
     @context = context

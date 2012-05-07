@@ -54,7 +54,7 @@ verifications
 ## Usage
 Start the application we are going to test
 
->  `cd apps/cms`
+>  `cd apps/cms/app`
 >  `script/rails s`
 
 Describe your application states in the maps directory
@@ -70,7 +70,7 @@ Describe the tranisitions that can be made from state to state and how to do it.
 >  `end`
 
 ### Calculate the plan
->  `ruby test.rb plan`
+>  `ruby test.rb describe`
 
 desired side effect: 
 * new file called reports/map.gv
@@ -82,10 +82,6 @@ desired side effect:
 desired side effect:
 * new file called reports/observations.yml
 
-### Print the Observations
->  `ruby test.rb print`
-
-### Validate the observations
 >  `ruby test.rb validate`
 
 desired side effect:

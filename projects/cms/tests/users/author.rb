@@ -10,7 +10,7 @@ user :author do
       },
       :article_edit => {
         :title => 'robots, ftw',
-        :body => 'call it what youw ant'
+        :body => 'call it what you want'
       } 
     },
     :second => {

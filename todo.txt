@@ -1,11 +1,11 @@
 # Plan
 # sub states
 # add exception when target name clash detected
-# are observers creating too much data?
-# error message when location defined twice (i wasted several minutes because of this)
 # interactive mode
+# error message when location defined twice (i wasted several minutes because of this)
 # good error messages for misuse of dsl?
 # validation that looks something like this:
+# are observers creating too much data?
 validate :website_lifecycle do |blackbox|
   blackbox[:super_administrator][:successfully_updated_website][:success].should == true
   blackbox[:super_administrator][:successfully_updated_website][:message].should == 'website created successfully'
