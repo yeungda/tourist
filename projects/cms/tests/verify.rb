@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + "/../../../../structural-matcher/structural_matcher.rb"
 require 'yaml'
 
-def validate
+def verify
   log = File.open( "./reports/observations.yaml" )
   YAML::load_documents(log) { |observation|
     @expectations.each { |expectation|
@@ -50,4 +50,4 @@ expectation({
   }
 })
 
-validate
+verify
