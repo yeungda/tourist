@@ -5,8 +5,8 @@ user :author do
     :password => 'password',
     :first => {
       :article_new => {
-        :article_title => 'Hello World',
-        :article_body => 'sunny side of the street'
+        :title => 'Hello World',
+        :body => 'sunny side of the street'
       },
       :article_edit => {
         :title => 'robots, ftw',
