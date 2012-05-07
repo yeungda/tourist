@@ -49,6 +49,7 @@ class Main
   end
 
   def execute
+    Blackbox.clear
     plan().map {|plan| plan.execute(@users)}
   end
 

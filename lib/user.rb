@@ -9,7 +9,7 @@ class User
 
   def visit(path, blackbox)
     @browser ||= Selenium::WebDriver.for :firefox
-    print "#{@name} -> "
+    print "@#{@name} -> "
     visit_with_context(path, blackbox)
     print "\n"
   end
