@@ -2,18 +2,13 @@
 
 ## About
 
-Tourist is a tool for creating journeys through system states. System states and transitions are mapped so users can navigate the system. Like tourists with cameras, users observe what they see on their journey. Observations are verified after the journies are complete to test whether the expected experience was had.
+Tourist is a tool for creating acceptance test journeys. System states and transitions are mapped so users can navigate the system. Like tourists with cameras, users observe what they see on their journey. Observations are verified after the journies are complete to test whether the expected experience was had.
 
 ## Objective
 
-Tourist is an experiment into automated journeys through systems. I hope to use it to answer the following questions:
+Build a scaffolding for separating concerns of acceptance test journies. Find out whether the model really helps one achieve better performance and simplicity at scale.
 
-* Can journeys be used to efficiently achieve high coverage of states in a CMS application?
-* Can journeys be used to efficiently achieve high coverage of states a wizard application?
-* Can journeys be used to efficiently achieve high coverage of states a restful web service?
-* Can journeys be used to collect data about an application and reason about it? Can it be used to check whether a global stylesheet has unused styles? What about page load times or number of clicks required?
-
-## Why?
+## Problem
 
 Consider the following unit test:
   it should do something
@@ -79,13 +74,15 @@ desired side effect:
 ### Execute the plan
 >  `ruby test.rb execute`
 
-desired side effect:
-* new file called reports/observations.yml
+side effect:
+* new file called reports/observations.yaml
 
->  `ruby test.rb validate`
+>  `ruby verify.rb`
 
 desired side effect:
 * new file called reports/validation.?
+* returns -1 if tests failed
+* failures printed to standard out
 
 ## What is interesting about this?
 Here is some speculation about why this might be interesting
@@ -113,8 +110,8 @@ so if you had states a, b, c and d that you wanted to test, the execution would 
 
 * a
 * a -> b
-* a -> c
-* a -> d
+* a -> b -> c
+* a -> b -> c -> d
 
 One nice feature of this approach is that if you had infinite machines, the testing would take only as long as the longest test.
 
@@ -134,31 +131,4 @@ Acceptance Test Journeys are considered a way to reduce this inefficiency by com
 * Delay assertions until after testing is done. This means seperating observation from assertion.
 * Users know things, so let's model it so that Users have data.
 * Scenarios that describe things users do at a macro level.
-
-## What do I need to know
-* What does my map look like?
-* What do my plans look like?
-* What is not yet covered, and what is the best journey to cover it with?
-
-# how do you model system state changes?
-# do we need sub states?
-
-## Strategy
-
-100% coverage in one journey?
-
-for happy path only
-
-* map states
-* map transitions
-* build journey
-
-for error cases
-* map states
-* map transitions
-* build journeys
-
-for multiple ways of doing things
-* build journeys
-
 
