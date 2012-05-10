@@ -20,13 +20,13 @@ class Plan
   end
 
   def to_destinations(journey)
-    journey.flat_map {|item| 
+    journey.map {|item| 
       if item.class == Hash 
         to_destinations(item[:journey])
       else
         item.name
       end
-    }
+    }.flatten
   end
 
 end
