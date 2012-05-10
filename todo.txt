@@ -1,20 +1,13 @@
-# Plan
-# sub states
-# add exception when target name clash detected
-# interactive mode
-# error message when location defined twice (i wasted several minutes because of this)
-# good error messages for misuse of dsl?
-# validation that looks something like this:
-# are observers creating too much data?
-validate :website_lifecycle do |blackbox|
-  blackbox[:super_administrator][:successfully_updated_website][:success].should == true
-  blackbox[:super_administrator][:successfully_updated_website][:message].should == 'website created successfully'
-  blackbox[:md_at_ray_white][:successfully_updated_website][:success].should == true
-  blackbox[:ray_white_prospective_buyer].first[:home][:success].should == true
-  blackbox[:ray_white_prospective_buyer].first[:quick_search][:success].should == true
-end
+wishlist 
+* print how many expectations not matching anything
+* REPL
+* web based UI for controlling journey
+* coverage graph generation
+* add exception when target name clash detected
+* error message when location defined twice (i wasted several minutes because of this)
+* good error messages for misuse of dsl?
 
-handle observations.yaml missing
-count of failures in verify
-
-# stages of journies for better clarity
+questions
+* are observers creating too much data?
+* stages of journies for better clarity?
+* sub states?

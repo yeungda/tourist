@@ -17,7 +17,7 @@ class Blackbox
   COUNTER = Counter.new
 
   def self.clear
-    File.delete(LOG_PATH)
+    File.delete(LOG_PATH) if File.exists? LOG_PATH
   end
 
   def initialize(journey_name=nil, context=[])
