@@ -37,12 +37,16 @@ class Main
         dict[destination] = val
         val
       }.join('+')}.join("\n")
-      reference = dict.map {|destination,id| "#{id} = #{destination}"}.join("\n")
+      reference = dict.keys.sort_by {|symbol| 
+        dict[symbol]
+      }.map{ |key| 
+        "#{dict[key]} = #{key}"
+      }.join("\n")
       "**** SHORTHAND PLANS ****\n#{reference}\n#{plans_shorthand}"
     end
 
     def plan_view(plans)
-      all_journies = plans.map {|plan| plan.destinations.to_a.join("\n")}.join("\n\n")
+      all_journies = plans.map {|plan| plan.destinations.join("\n")}.join("\n\n")
       "**** PLANS ****\n#{all_journies}"
     end
     plans = plan()

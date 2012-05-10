@@ -5,7 +5,7 @@ class Blackbox
 
   class Counter
     def initialize
-      @counter = 1
+      @counter = 0
     end
 
     def next

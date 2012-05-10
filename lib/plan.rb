@@ -14,7 +14,7 @@ class Plan
   end
 
   def destinations
-    @itinerary.reduce(Set.new) {|set, item| 
+    @itinerary.reduce([]) {|set, item| 
       set + to_destinations(item[:journey])
     }
   end
