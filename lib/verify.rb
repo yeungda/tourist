@@ -1,8 +1,9 @@
 require 'yaml'
+require File.dirname(__FILE__) + "/blackbox.rb"
 require File.dirname(__FILE__) + "/../../structural-matcher/structural_matcher.rb"
 
 def verify
-  log = File.open( "./reports/observations.yaml" )
+  log = File.open(Blackbox::LOG_PATH)
   pass_count = 0
   fail_count = 0
   YAML::load_documents(log) { |observation|

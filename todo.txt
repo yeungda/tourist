@@ -1,3 +1,8 @@
+todo
+* check article body for reader
+* observe state change time
+* write a build script
+
 wishlist 
 * print how many expectations not matching anything
 * REPL
