@@ -1,10 +1,4 @@
-
-def is_a_web_page
-  tag :web_page
-  observations do |browser|
-    {:page_title => browser.title}
-  end
-end
+require File.dirname(__FILE__) + "/common.rb"
 
 state :log_in_successful do
   is_a_web_page

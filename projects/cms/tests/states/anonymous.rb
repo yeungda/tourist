@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + "/common.rb"
+
 state :start do
   to :log_in do |browser, data|
     browser.navigate.to data[:url]

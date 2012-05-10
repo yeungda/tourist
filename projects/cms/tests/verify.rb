@@ -2,7 +2,7 @@
 require File.dirname(__FILE__) + "/../../../lib/verify.rb"
 
 expectation({
-  :description => 'every page should have a title',
+  :description => 'every web page should have a title',
   :for => {
     'tags' => [:web_page],
   },
