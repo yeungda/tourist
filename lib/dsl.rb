@@ -19,7 +19,7 @@ def state(name, &block)
     :observations => [],
     :tags => []
   }
-  block.yield
+  block.call
   @current_state = nil
 end
 
@@ -38,6 +38,6 @@ end
 def user(name, &user_data)
   #options has :role
   raise 'name is mandatory' if name.nil?
-  @world[:users] << {:name => name, :data => user_data.yield}
+  @world[:users] << {:name => name, :data => user_data.call}
 end
 

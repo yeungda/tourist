@@ -6,7 +6,7 @@ class Journey
   end
 
   def plan
-    plan = @block.yield
+    plan = @block.call
     itinerary = plan.map {|item| 
       {:user_name => item[:user_name], :journey => @states.resolve([:start]) + to_journey(item[:intention])}
     }

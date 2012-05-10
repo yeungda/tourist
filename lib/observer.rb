@@ -5,6 +5,6 @@ class Observer
   end
 
   def observe(browser)
-    @block.yield(browser)
+    @block.call(browser)
   end
 end

@@ -14,4 +14,7 @@ validate :website_lifecycle do |blackbox|
   blackbox[:ray_white_prospective_buyer].first[:quick_search][:success].should == true
 end
 
+handle observations.yaml missing
+count of failures in verify
+
 # stages of journies for better clarity

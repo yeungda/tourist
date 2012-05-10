@@ -34,4 +34,19 @@ expectation({
   }
 })
 
+expectation({
+  :description => "reader should see the author's first article",
+  :for => {
+    'journey' => :website_lifecycle,
+    'location' => :articles,
+  },
+  :expectations => {
+    :articles => [
+      {
+        :title => 'robots, ftw'
+      }
+    ]
+
+  }
+})
 verify

@@ -116,6 +116,11 @@ state :view_article do
 
 end
 
+def set_element_value(element, value)
+  element.clear
+  element.send_keys value
+end
+
 state :edit_article do
   is_a_web_page
   to :admin_articles do |browser, data|
@@ -123,8 +128,8 @@ state :edit_article do
   end
 
   to :edit_article_successful do |browser, data|
-    browser.find_element(:id => 'article_title').send_keys data[:article_edit][:title]
-    browser.find_element(:id => 'article_body').send_keys data[:article_edit][:body]
+    set_element_value(browser.find_element(:id => 'article_title'), data[:article_edit][:title])
+    set_element_value(browser.find_element(:id => 'article_body'), data[:article_edit][:body])
     browser.find_element(:id => 'article_submit').click
   end
 

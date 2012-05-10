@@ -9,6 +9,6 @@ class Transition
   end
 
   def transition(browser, user_data)
-    @block.yield(browser, user_data)
+    @block.call(browser, user_data)
   end
 end

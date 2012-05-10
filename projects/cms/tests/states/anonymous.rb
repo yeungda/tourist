@@ -19,6 +19,18 @@ end
 
 state :articles do
   is_a_web_page
+
+  observations do |browser|
+    {
+      :articles => browser.find_elements(:css => 'table tr').select {|row| 
+          row.find_elements(:css => 'td').size > 0
+        }.map {|row| 
+        {
+          :title => row.find_elements(:css => 'td').first.text
+        }
+      }
+    }
+  end
 end
 
 state :log_in do
