@@ -1,15 +1,18 @@
 
-page_title = lambda do |browser|
-  {:page_title => browser.title}
+def is_a_web_page
+  tag :web_page
+  observations do |browser|
+    {:page_title => browser.title}
+  end
 end
 
 state :log_in_successful do
+  is_a_web_page
   to :dashboard do end
-
-  observations &page_title
 end
 
 state :dashboard do
+  is_a_web_page
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
@@ -17,11 +20,10 @@ state :dashboard do
   to :logged_out do |browser, data|
     browser.find_element(:link_text => 'Logout').click
   end
-
-  observations &page_title
 end
 
 state :admin_articles do
+  is_a_web_page
 
   to :new_article do |browser, data|
     browser.find_element(:link_text => 'New Article').click
@@ -79,7 +81,6 @@ state :admin_articles do
     {
       :articles => browser.find_element(:css => 'table#articles').text,
       #:source => browser.page_source
-      :page_title => browser.title
     }
   end
 end
@@ -94,6 +95,7 @@ def wait_for_articles(browser)
 end
 
 state :new_article do
+  is_a_web_page
 
   to :successfully_created_article do |browser, data, article|
     browser.find_element(:id => 'article_title').send_keys data[:article_new][:title]
@@ -106,11 +108,10 @@ state :new_article do
     browser.find_element(:id => 'article_body').send_keys data[:article_new][:body]
     browser.find_element(:id => 'article_submit').click
   end
-
-  observations &page_title
 end
 
 state :view_article do 
+  is_a_web_page
   to :admin_articles do |browser, data|
     click_and_wait(browser, :link_text => 'Articles')
   end
@@ -119,10 +120,10 @@ state :view_article do
     browser.find_element(:link_text => 'Edit Article').click
   end
 
-  observations &page_title
 end
 
 state :edit_article do
+  is_a_web_page
   to :admin_articles do |browser, data|
     click_and_wait(browser, :link_text => 'Articles')
   end
@@ -133,16 +134,16 @@ state :edit_article do
     browser.find_element(:id => 'article_submit').click
   end
 
-  observations &page_title
 end
 
 state :edit_article_successful do
+  is_a_web_page
   to :view_article do end
 
-  observations &page_title
 end
 
 state :delete_article do 
+  is_a_web_page
   to :delete_article_success do |browser, data| 
     browser.switch_to.alert.accept
     wait_for_articles(browser)
@@ -155,72 +156,72 @@ state :delete_article do
   observations do |browser|
     {
       :text => browser.switch_to.alert.text,
-      :page_title => browser.title
     }
   end
 end
 
 state :delete_article_success do
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :delete_article_cancel do
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_created_at_asc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_created_at_dsc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_updated_at_asc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_updated_at_dsc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_body_asc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_body_dsc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_title_asc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :admin_articles_by_title_dsc do 
+  is_a_web_page
   to :admin_articles do end
 
-  observations &page_title
 end
 
 state :successfully_created_article do
+  is_a_web_page
   to :admin_articles do |browser, data|
     browser.find_element(:link_text => 'Articles').click
   end
@@ -228,7 +229,6 @@ state :successfully_created_article do
   observations do |browser|
     {
       :article => browser.find_element(:css => '.attributes_table.article').text,
-      :page_title => browser.title
     }
   end
 end

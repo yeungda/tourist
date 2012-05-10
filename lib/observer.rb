@@ -4,7 +4,7 @@ class Observer
     @block = block
   end
 
-  def observe(location, browser, blackbox)
-    blackbox.log(location, @block.yield(browser))
+  def observe(browser)
+    @block.yield(browser)
   end
 end

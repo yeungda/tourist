@@ -25,12 +25,13 @@ class Blackbox
     @context = context
   end
   
-  def log(location, data)
+  def log(location, tags, data)
     File.open(LOG_PATH, 'a' ) { |out|
       YAML.dump( {
           'id' => COUNTER.next,
           'journey' => @journey_name,
           'location' => location, 
+          'tags' => tags,
           'timestamp' => Time.now, 
           'context' => @context,
           'observations' => data

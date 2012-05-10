@@ -7,7 +7,8 @@ class Main
       State.new(
         data[:name],
         transitions(data[:transitions]), 
-        observations(data[:observations])
+        observations(data[:observations]),
+        data[:tags]
       )
     })
 
