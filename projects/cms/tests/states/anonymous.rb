@@ -61,16 +61,12 @@ state :log_in do
     browser.find_element(:id => 'admin_user_submit').click
   end
 
-  observations do |browser|
-    {:page_title => browser.title}
-  end
 end
 
 state :log_in_failed do
   is_a_web_page
   observations do |browser|
     {
-      :page_title => browser.title,
       :message => browser.find_element(:css => '.flash_alert').text
     }
   end
