@@ -35,7 +35,7 @@ expectation({
 })
 
 expectation({
-  :description => "reader should see the author's first article",
+  :description => "reader should see the author's first article in article listing",
   :for => {
     'journey' => :website_lifecycle,
     'location' => :articles,
@@ -49,4 +49,18 @@ expectation({
 
   }
 })
+
+expectation({
+  :description => "reader should see the author's first article",
+  :for => {
+    'journey' => :website_lifecycle,
+    'location' => :article,
+    'context' => [:first]
+  },
+  :expectations => {
+    :title => 'robots, ftw',
+    :body => 'call it what you want'
+  }
+})
+
 verify

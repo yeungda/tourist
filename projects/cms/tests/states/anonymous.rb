@@ -20,15 +20,29 @@ end
 state :articles do
   is_a_web_page
 
+  to :article do |browser, data|
+    browser.find_element(:xpath => "//td[text() = '#{data[:article_title]}']/../td/a[text() = 'Show']").click
+  end
+
   observations do |browser|
     {
       :articles => browser.find_elements(:css => 'table tr').select {|row| 
           row.find_elements(:css => 'td').size > 0
         }.map {|row| 
-        {
-          :title => row.find_elements(:css => 'td').first.text
+          {
+            :title => row.find_elements(:css => 'td').first.text
+          }
         }
-      }
+    }
+  end
+end
+
+state :article do
+  is_a_web_page
+  observations do |browser|
+    {
+      :title => browser.find_element(:css, 'h1').text,
+      :body => browser.find_element(:xpath, '//h1/following-sibling::*').text
     }
   end
 end

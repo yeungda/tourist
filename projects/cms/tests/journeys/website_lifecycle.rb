@@ -40,7 +40,11 @@ journey :website_lifecycle do
       :user_name => :reader,
       :intention => [
         :start,
-        :articles
+        :articles,
+        {
+          :context => :first,
+          :intention => [:article]
+        }
       ]
     }
   ]

@@ -1,9 +1,9 @@
 todo
 * check article body for reader
-* add descriptions to journeys
 * observe state change time
 * write a build script
 * return -1 when verify fails
+* add descriptions to journeys
 
 wishlist 
 * print how many expectations not matching anything
