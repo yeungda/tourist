@@ -1,15 +1,20 @@
 todo
-* check article body for reader
+* clear README
 * observe state change time
 * write a build script
 * return -1 when verify fails
 * add descriptions to journeys
+* make it support something other than webdriver
+* make it support custom matchers
 
 wishlist 
+* overall journey time expectation
+* save files outside of observations.yaml
 * print how many expectations not matching anything
-* REPL
-* web based UI for controlling journey
 * coverage graph generation
+* exploratory testing and development
+  * REPL
+  * web based UI for controlling journey
 * add exception when target name clash detected
 * error message when location defined twice (i wasted several minutes because of this)
 * good error messages for misuse of dsl?
