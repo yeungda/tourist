@@ -1,50 +1,10 @@
 # Tourist
 
+A tourist takes journeys, snapping many pictures of what he sees along the way...
+
 ## About
 
-Tourist is a tool for creating acceptance test journeys. System states and transitions are mapped so users can navigate the system. Like tourists with cameras, users observe what they see on their journey. Observations are verified after the journies are complete to test whether the expected experience was had.
-
-## Objective
-
-Build a scaffolding for separating concerns of acceptance test journies. Find out whether the model really helps one achieve better performance and simplicity at scale.
-
-## Problem
-
-Consider the following unit test:
-  it should do something
-    given I these actions have been completed, where a = 1 and b = 2
-    when i do something
-    then the result should be 10
-
-i only have to read these few lines to understand what the test is doing.  The intent of the test is captured in the test name. The actions I need to take are captured in the given and when. I can see all the relevant inputs that are required for the test scenario to happen. And I can see exactly what we were expecting to happen.
-All the concerns that matter, the actions, inputs, expectations and intent, are tightly coupled, as one is mixed with the other in code and also temporally. A unit test is the coupling of all the concerns that matter. 
-
-Just because it works for unit tests, does not mean the same applies at a functional level. What's good for the goose, is not necessarily good for then gander.
-
-in functional tests, the given actions often take a very long time. They are often also very complex. In a perfect world, we would simply parallelise all tests so the testing takes as long as the longest test. This is sadly very far from reality. Projects pay for the time it takes to run functional tests in spades. Whether it's running them, or maintaining them.
-
-Functional tests often require a number of steps to be taken to get to a state that they can test. For example, we must first log in and create a blog post before we can see it on the blog. Unit tests rarely have so many steps to take before they can be executed. 
-
-By shoehorning our unit testing paradigm onto functional tests, I think we are missing the point. A real user doesn't usually doesn't use an application and only try one small piece of functionality, they usually want to complete a process of some kind. Unit tests at a functional level do not simulate real user behaviour.
-
-Some say that tests should be consolidated into feature level journeys. If we were to use the unit testing paradigm to build these, it might look like a very very long procedure. And I think as we build a more higher level test, we lose the intent of what we are testing, since our single test name cannot describe all the things that are happening adequately.
-
-Unit tests don't scale to journeys. As is common practise in other endeavours, what if we attempted to separate concerns?
-
-journeys
-  users
-    input data
-  itinerary
-states
-  transitions
-  observations
-  states 
-    transitions
-    observations
-    states ...
-verifications
-  intent
-  expected outputs
+Tourist aims to provide a scalable structure for your acceptance tests. It allows you to create longer running tests without having to write enormous amounts of procedural code. It does this by separating the concerns you find in longer tests into categories such as inputs, itineraries, expectations, transitions, and observations.
 
 ## Usage
 Start the application we are going to test
@@ -52,37 +12,35 @@ Start the application we are going to test
 >  `cd apps/cms/app`
 >  `script/rails s`
 
+### Describe
+>  `cd apps/cms/test`
+>  `./describe.rb`
+
+### Run
+>  `cd apps/cms/test`
+>  `./run.rb`
+
+### Verify
+>  `cd apps/cms/test`
+>  `./verify.rb`
+
+## Writing journeys
+
+### States
+
 Describe your application states in the maps directory
 
 >  `location :homepage do end`
 >  `location :articles do end`
 >  `location :article do end`
 
+### Transitions
+
 Describe the tranisitions that can be made from state to state and how to do it.
 
 >  `location :a_location`
 >  `  to :another_location do end`
 >  `end`
-
-### Calculate the plan
->  `ruby test.rb describe`
-
-desired side effect: 
-* new file called reports/map.gv
-* new file called reports/coverage.gv
-
-### Execute the plan
->  `ruby test.rb execute`
-
-side effect:
-* new file called reports/observations.yaml
-
->  `ruby verify.rb`
-
-desired side effect:
-* new file called reports/validation.?
-* returns -1 if tests failed
-* failures printed to standard out
 
 ## What is interesting about this?
 Here is some speculation about why this might be interesting
@@ -125,10 +83,48 @@ Is thinking in terms of states a useful thing? I think it is progress when we ar
 
 I'm trying to understand whether by breaking down the problem of scaling a testing suite into smaller problems, we can achieve better scalability. Tourist attempts to use journeys to gain coverage of an application and observations to capture what happened for later. By doing so, we can temporally decouple concerns such as assertions from automation.
 
-Acceptance Test Journeys are considered a way to reduce this inefficiency by combining many similar tests into one. I think it is clunky to implement journies in current tooling such as cucumber or jbehave. So I'm trying trying to solve some of the problems in scaling a testing suite. I'm trying out a number of ideas to help such as:
+Acceptance Test Journeys are considered a way to reduce this inefficiency by combining many similar tests into one. I think it is clunky to implement journeys in current tooling such as cucumber or jbehave. So I'm trying trying to solve some of the problems in scaling a testing suite. I'm trying out a number of ideas to help such as:
 
 * Can we create a state transition map that allows us to find journeys based on only some end goal?
 * Delay assertions until after testing is done. This means seperating observation from assertion.
 * Users know things, so let's model it so that Users have data.
 * Scenarios that describe things users do at a macro level.
+
+## The Problem with unit testing for acceptance testing
+
+Consider the following unit test:
+  it does something important
+    given I these actions have been completed, where a = 1 and b = 2
+    when i do something
+    then the result should be 10
+
+i only have to read these few lines to understand what the test is doing.  The intent of the test is captured in the test name. The actions I need to take are captured in the given and when. I can see all the relevant inputs that are required for the test scenario to happen. And I can see exactly what we were expecting to happen.
+All the concerns that matter, the actions, inputs, expectations and intent, are tightly coupled, as one is mixed with the other in code and also temporally. A unit test is the coupling of all the concerns that matter. 
+
+Just because it works for unit tests, does not mean the same applies at a functional level. What's good for the goose, is not necessarily good for then gander.
+
+in functional tests, the given actions often take a very long time. They are often also very complex. In a perfect world, we would simply parallelise all tests so the testing takes as long as the longest test. This is sadly very far from reality. Projects pay for the time it takes to run functional tests in spades. Whether it's running them, or maintaining them.
+
+Functional tests often require a number of steps to be taken to get to a state that they can test. For example, we must first log in and create a blog post before we can see it on the blog. Unit tests rarely have so many steps to take before they can be executed. 
+
+By shoehorning our unit testing paradigm onto functional tests, I think we are missing the point. A real user doesn't usually doesn't use an application and only try one small piece of functionality, they usually want to complete a process of some kind. Unit tests at a functional level do not simulate real user behaviour.
+
+Some say that tests should be consolidated into feature level journeys. If we were to use the unit testing paradigm to build these, it might look like a very very long procedure. And I think as we build a more higher level test, we lose the intent of what we are testing, since our single test name cannot describe all the things that are happening adequately.
+
+Unit tests don't scale to journeys. As is common practise in other endeavours, what if we attempted to separate concerns?
+
+journeys
+  users
+    input data
+  itinerary
+states
+  transitions
+  observations
+  states 
+    transitions
+    observations
+    states ...
+verifications
+  intent
+  expected outputs
 
