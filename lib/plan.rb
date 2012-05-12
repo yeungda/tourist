@@ -9,7 +9,6 @@ class Plan
     observations = @itinerary.map {|item|
       users[item[:user_name]].visit(item[:journey], blackbox)
     }
-    users.values.each &:done
     observations
   end
 

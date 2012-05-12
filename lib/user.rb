@@ -1,15 +1,14 @@
 require 'rubygems'
-require "selenium-webdriver"
 
 class User
 
-  def initialize(name, user_data)
+  def initialize(name, user_data, tool)
     @name = name
     @user_data = user_data
+    @tool = tool
   end
 
   def visit(path, blackbox)
-    @browser ||= Selenium::WebDriver.for :firefox
     print "@#{@name} -> "
     visit_with_context(path, blackbox)
     print "\n"
@@ -22,8 +21,8 @@ class User
   end
 
   def done
-    @browser.close unless @browser.nil?
-    @browser = nil
+    @tool.off unless @tool.nil?
+    @tool = nil
   end
 
   private
@@ -36,7 +35,7 @@ class User
           next_step = next_step[:journey].last
         else
           print " -> #{next_step.name}"
-          previous_step.visit(next_step, @browser, contextual_data(context), blackbox.with_context(context))
+          previous_step.visit(next_step, @tool.get, contextual_data(context), blackbox.with_context(context))
         end
       else
         print "#{next_step.name}"

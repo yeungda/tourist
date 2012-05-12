@@ -1,7 +1,8 @@
 @world = {
   :journeys => [],
   :states => {},
-  :users => []
+  :users => [],
+  :tools => []
 }
 
 def journey(name, &block)
@@ -35,9 +36,11 @@ def tag(the_tag)
   @world[:states][@current_state][:tags] << the_tag
 end
 
-def user(name, &user_data)
-  #options has :role
+def user(name, options={}, &user_data)
   raise 'name is mandatory' if name.nil?
-  @world[:users] << {:name => name, :data => user_data.call}
+  @world[:users] << {:name => name, :data => user_data.call, :options => options}
 end
 
+def tool(name, &tool_factory)
+  @world[:tools] << {:name => name, :tool_factory => tool_factory}
+end

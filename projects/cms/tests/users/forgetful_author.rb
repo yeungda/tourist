@@ -1,4 +1,4 @@
-user :forgetful_author do
+user :forgetful_author, :tool => :browser do
   {
     :url => 'http://localhost:3000/admin',
     :email_address => 'admin@example.com',

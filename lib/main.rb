@@ -13,8 +13,12 @@ class Main
     })
 
     @journeys = world[:journeys].map {|journey| Journey.new(journey[:name], journey[:block], @states)}
+
+    @tools = Tools.new(tools(world[:tools]))
+
     @users = world[:users].inject({}) {|users, user| 
-      users.merge({user[:name] => User.new(user[:name], user[:data] )})
+      tool = @tools.create(user[:options][:tool])
+      users.merge({user[:name] => User.new(user[:name], user[:data], tool )})
     }
   end
 
@@ -56,6 +60,7 @@ class Main
   def execute
     Blackbox.clear
     plan().map {|plan| plan.execute(@users)}
+    @users.values.each &:done
   end
 
   private
@@ -70,6 +75,10 @@ class Main
 
   def observations(observations)
     observations.map {|observation| Observer.new(observation[:block])}
+  end
+  
+  def tools(tools)
+    tools.map {|tool| Tool.new(tool[:name], tool[:tool_factory])}
   end
 end
 
