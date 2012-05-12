@@ -16,9 +16,9 @@ Start the application we are going to test
 >  `cd apps/cms/test`
 >  `./describe.rb`
 
-### Run
+### Tour
 >  `cd apps/cms/test`
->  `./run.rb`
+>  `./tour.rb`
 
 ### Verify
 >  `cd apps/cms/test`

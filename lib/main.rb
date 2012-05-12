@@ -57,7 +57,7 @@ class Main
     puts([plan_view(plans), algebra_view(plans), unplanned_view(plans)].join("\n\n"))
   end
 
-  def execute
+  def tour
     Blackbox.clear
     plan().map {|plan| plan.execute(@users)}
     @users.values.each &:done
