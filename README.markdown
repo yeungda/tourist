@@ -8,14 +8,17 @@ Tourist aims to provide a scalable structure for your acceptance tests. It allow
 
 ## Example
 
-There is an example project created in the projects/cms directory.
+There is an example project created in the projects/cms directory. You can start it with a command like this:
+> `cd projects/cms`
+
+> `rake db:drop db:create db:migrate db:seed && rails s`
+
+You can try tourist out by running this command:
+> `tourist describe && tourist tour && tourist verify`
 
 ### Usage
-Start the application we are going to test
-
->  `cd projects/cms/app`
-
->  `script/rails s`
+Ensure you are in your project's tourist directory and that you have added the tourist tem.
+>  `cd tourist`
 
 #### Describe
 >  `tourist describe`
