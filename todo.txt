@@ -1,13 +1,21 @@
-todo
+todo for showing to someone
+* gemify
 * clear README
+* make it support custom matchers
+
+todo for something releasable
+* easy project initialisation
+* single command for describe, run, verify, etc
+
+todo
 * observe state change time
+** think this will require an analysis step, for map/reduce on observations.yaml
 * write a build script
 * return -1 when verify fails
 * add descriptions to journeys
-* make it support something other than webdriver
-* make it support custom matchers
 
 wishlist 
+* parallel journey support
 * overall journey time expectation
 * save files outside of observations.yaml
 * print how many expectations not matching anything
@@ -21,5 +29,5 @@ wishlist
 
 questions
 * are observers creating too much data?
-* stages of journies for better clarity?
+* stages of journeys for better clarity?
 * sub states?

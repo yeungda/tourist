@@ -6,23 +6,25 @@ A tourist takes journeys, snapping many pictures of what he sees along the way..
 
 Tourist aims to provide a scalable structure for your acceptance tests. It allows you to create longer running tests without having to write enormous amounts of procedural code. It does this by separating the concerns you find in longer tests into categories such as inputs, itineraries, expectations, transitions, and observations.
 
-## Usage
+## Example
+
+There is an example project created in the projects/cms directory.
+
+### Usage
 Start the application we are going to test
 
->  `cd apps/cms/app`
+>  `cd projects/cms/app`
+
 >  `script/rails s`
 
-### Describe
->  `cd apps/cms/test`
->  `./describe.rb`
+#### Describe
+>  `tourist describe`
 
-### Tour
->  `cd apps/cms/test`
->  `./tour.rb`
+#### Tour
+>  `tourist tour`
 
-### Verify
->  `cd apps/cms/test`
->  `./verify.rb`
+#### Verify
+>  `tourist verify`
 
 ## Writing journeys
 
