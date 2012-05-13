@@ -6,10 +6,32 @@ A tourist takes journeys, snapping many pictures of what he sees along the way..
 
 Tourist aims to provide a scalable structure for your acceptance tests. It allows you to create longer running tests without having to write enormous amounts of procedural code. It does this by separating the concerns you find in longer tests into categories such as inputs, itineraries, expectations, transitions, and observations.
 
-## Example
+## Work in Progess!
+
+This thing isn't finished, and no one in their right mind would use it on a project yet.
+
+If you want to give it a go, these are all the steps I know of to get it to work.
+
+### create some gemsets
+Do this before you begin
+
+> `rvm gemset create tourist`
+
+> `rvm gemset create tourist-example-cms`
+
+### run bundler
+> `cd tourist`
+> `bundle`
+
+### Build the gem
+> `gem build tourist.gemspec`
+
+## Run the example
 
 There is an example project created in the projects/cms directory. You can start it with a command like this:
 > `cd projects/cms`
+
+> `bundle`
 
 > `rake db:drop db:create db:migrate db:seed && rails s`
 
