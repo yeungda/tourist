@@ -1,4 +1,4 @@
-class Identifier
+class Tourist::Identifier
   ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
   def self.to_s_in_base(number, max)
     base = ALPHABET.length
@@ -11,7 +11,7 @@ class Identifier
   def self.hash_with_identifier(total_size)
     index = 0
     Hash.new { 
-      id = Identifier.to_s_in_base(index, total_size)
+      id = Tourist::Identifier.to_s_in_base(index, total_size)
       index = index + 1
       id
     }

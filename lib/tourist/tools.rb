@@ -1,4 +1,4 @@
-class Tools
+class Tourist::Tools
   def initialize(tools)
     @tools = tools.reduce({}) {|name_to_tool, tool|
       name_to_tool[tool.name] = tool

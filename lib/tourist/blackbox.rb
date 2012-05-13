@@ -1,6 +1,6 @@
 require 'yaml'
 
-class Blackbox
+class Tourist::Blackbox
   LOG_PATH = './reports/observations.yaml'
 
   class Counter
@@ -40,7 +40,7 @@ class Blackbox
   end
 
   def with_context(context)
-    Blackbox.new(@journey_name, context)
+    Tourist::Blackbox.new(@journey_name, context)
   end
 
   def print

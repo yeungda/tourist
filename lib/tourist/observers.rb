@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/observer.rb'
 
-class Observers
+class Tourist::Observers
   def initialize(blackbox)
     @observers = {}
     @blackbox = blackbox

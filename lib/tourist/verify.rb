@@ -1,15 +1,15 @@
 require 'yaml'
 require File.dirname(__FILE__) + "/blackbox.rb"
-require File.dirname(__FILE__) + "/../../structural-matcher/structural_matcher.rb"
+require File.dirname(__FILE__) + "/structural_matcher.rb"
 
 def verify
-  log = File.open(Blackbox::LOG_PATH)
+  log = File.open(Tourist::Blackbox::LOG_PATH)
   pass_count = 0
   fail_count = 0
   YAML::load_documents(log) { |observation|
     @expectations.each { |expectation|
-      if expectation[:for].nil? or StructuralMatcher.match(expectation[:for], observation)[:matches?]
-        result = StructuralMatcher.match(expectation[:expectations], observation['observations'])
+      if expectation[:for].nil? or Tourist::StructuralMatcher.match(expectation[:for], observation)[:matches?]
+        result = Tourist::StructuralMatcher.match(expectation[:expectations], observation['observations'])
         if result[:matches?]
           puts "[#{observation['id']}][OK] #{expectation[:description]}"
           pass_count += 1

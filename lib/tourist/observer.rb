@@ -1,4 +1,4 @@
-class Observer
+class Tourist::Observer
 
   def initialize(block)
     @block = block

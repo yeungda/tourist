@@ -1,10 +1,10 @@
 Dir[File.dirname(__FILE__) + "/*.rb"].each {|file| require file }
 
-class Main
+class Tourist::Main
   def initialize(world)
-    @states = States.new(
+    @states = Tourist::States.new(
       world[:states].map {|name, data| 
-      State.new(
+      Tourist::State.new(
         data[:name],
         transitions(data[:transitions]), 
         observations(data[:observations]),
@@ -12,13 +12,13 @@ class Main
       )
     })
 
-    @journeys = world[:journeys].map {|journey| Journey.new(journey[:name], journey[:block], @states)}
+    @journeys = world[:journeys].map {|journey| Tourist::Journey.new(journey[:name], journey[:block], @states)}
 
-    @tools = Tools.new(tools(world[:tools]))
+    @tools = Tourist::Tools.new(tools(world[:tools]))
 
     @users = world[:users].inject({}) {|users, user| 
       tool = @tools.create(user[:options][:tool])
-      users.merge({user[:name] => User.new(user[:name], user[:data], tool )})
+      users.merge({user[:name] => Tourist::User.new(user[:name], user[:data], tool )})
     }
   end
 
@@ -35,7 +35,7 @@ class Main
 
     def algebra_view(plans)
       unique_destinations = plans.inject(Set.new) {|total, plan| total + plan.destinations}
-      dict = Identifier.hash_with_identifier unique_destinations.size
+      dict = Tourist::Identifier.hash_with_identifier unique_destinations.size
       plans_shorthand = plans.map {|plan| plan.destinations.to_a.map {|destination| 
         val = dict[destination]
         dict[destination] = val
@@ -58,7 +58,7 @@ class Main
   end
 
   def tour
-    Blackbox.clear
+    Tourist::Blackbox.clear
     plan().map {|plan| plan.execute(@users)}
     @users.values.each &:done
   end
@@ -70,15 +70,15 @@ class Main
   end
 
   def transitions(transitions)
-    transitions.map {|transition| Transition.new(transition[:destination], transition[:block])}
+    transitions.map {|transition| Tourist::Transition.new(transition[:destination], transition[:block])}
   end
 
   def observations(observations)
-    observations.map {|observation| Observer.new(observation[:block])}
+    observations.map {|observation| Tourist::Observer.new(observation[:block])}
   end
   
   def tools(tools)
-    tools.map {|tool| Tool.new(tool[:name], tool[:tool_factory])}
+    tools.map {|tool| Tourist::Tool.new(tool[:name], tool[:tool_factory])}
   end
 end
 

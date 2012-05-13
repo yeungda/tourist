@@ -1,4 +1,4 @@
-class Tool
+class Tourist::Tool
   attr_accessor :name
   def initialize(name, tool_factory)
     @name = name

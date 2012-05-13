@@ -1,4 +1,4 @@
-class Journey
+class Tourist::Journey
   def initialize(name, block, states)
     @name = name
     @block = block
@@ -10,7 +10,7 @@ class Journey
     itinerary = plan.map {|item| 
       {:user_name => item[:user_name], :journey => @states.resolve([:start]) + to_journey(item[:intention])}
     }
-    Plan.new(@name, itinerary)
+    Tourist::Plan.new(@name, itinerary)
   end
 
   def to_journey(intention, last_destination=:start)

@@ -1,11 +1,11 @@
-class Plan
+class Tourist::Plan
   def initialize(journey_name, itinerary)
     @itinerary = itinerary
     @journey_name = journey_name
   end
   
   def execute(users)
-    blackbox = Blackbox.new(@journey_name)
+    blackbox = Tourist::Blackbox.new(@journey_name)
     observations = @itinerary.map {|item|
       users[item[:user_name]].visit(item[:journey], blackbox)
     }

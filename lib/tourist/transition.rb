@@ -1,4 +1,4 @@
-class Transition
+class Tourist::Transition
   def initialize(destination, block)
     @destination = destination
     @block = block

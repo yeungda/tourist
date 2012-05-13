@@ -1,4 +1,4 @@
-class State
+class Tourist::State
   attr_reader :name
   def initialize(name, transitions, observations, tags)
     @name = name

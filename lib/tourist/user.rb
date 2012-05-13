@@ -1,6 +1,6 @@
 require 'rubygems'
 
-class User
+class Tourist::User
 
   def initialize(name, user_data, tool)
     @name = name

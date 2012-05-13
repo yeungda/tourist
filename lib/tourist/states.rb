@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/state.rb'
 require 'set'
 
-class States
+class Tourist::States
 
   INFINITY = 65000
 
