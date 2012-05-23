@@ -6,6 +6,11 @@ A tourist takes journeys, snapping many pictures of what he sees along the way..
 
 Tourist aims to provide a scalable structure for your acceptance tests. It allows you to create longer running tests without having to write enormous amounts of procedural code. It does this by separating the concerns you find in longer tests into categories such as inputs, itineraries, expectations, transitions, and observations.
 
+# Goal
+
+* improve efficiency of acceptance test suites.
+* give clarity to where things belong.
+
 ## Work in Progess!
 
 This thing isn't finished, and no one in their right mind would use it on a project yet.

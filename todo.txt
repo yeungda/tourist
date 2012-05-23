@@ -4,6 +4,7 @@ todo for showing to someone
 * make it support custom matchers
 
 todo for something releasable
+* state missing error message
 * easy project initialisation
 * single command for describe, run, verify, etc
 
@@ -15,6 +16,7 @@ todo
 * add descriptions to journeys
 
 wishlist 
+* to reduce duplication, maybe transitions could dynamically go to different states
 * parallel journey support
 * overall journey time expectation
 * save files outside of observations.yaml

@@ -8,8 +8,8 @@ class Tourist::User
     @tool = tool
   end
 
-  def visit(path, blackbox)
-    print "@#{@name} -> "
+  def visit(journey_name, path, blackbox)
+    print "@#{@name} -> ##{journey_name} -> "
     visit_with_context(path, blackbox)
     print "\n"
   end

@@ -1,4 +1,6 @@
 class Tourist::Journey
+  attr_reader :name
+
   def initialize(name, block, states)
     @name = name
     @block = block

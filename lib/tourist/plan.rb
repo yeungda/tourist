@@ -1,4 +1,6 @@
 class Tourist::Plan
+  attr_reader :journey_name
+
   def initialize(journey_name, itinerary)
     @itinerary = itinerary
     @journey_name = journey_name
@@ -7,7 +9,7 @@ class Tourist::Plan
   def execute(users)
     blackbox = Tourist::Blackbox.new(@journey_name)
     observations = @itinerary.map {|item|
-      users[item[:user_name]].visit(item[:journey], blackbox)
+      users[item[:user_name]].visit(@journey_name, item[:journey], blackbox)
     }
     observations
   end

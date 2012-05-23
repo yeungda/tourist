@@ -57,16 +57,18 @@ class Tourist::Main
     puts([plan_view(plans), algebra_view(plans), unplanned_view(plans)].join("\n\n"))
   end
 
-  def tour
+  def drive(journey_names=nil)
     Tourist::Blackbox.clear
-    plan().map {|plan| plan.execute(@users)}
+    plan(journey_names).map {|plan| plan.execute(@users)}
     @users.values.each &:done
   end
 
   private
 
-  def plan
-    @journeys.map &:plan
+  def plan(journey_names=nil)
+    @journeys.select {|journey|
+      journey_names.nil? || journey_names.member?(journey.name.to_s)
+    }.map &:plan
   end
 
   def transitions(transitions)

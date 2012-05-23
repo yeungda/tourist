@@ -2,24 +2,29 @@
 require 'tourist'
 
 command = ARGV[0]
+options = if ARGV.size <= 1 then nil else ARGV[1..-1] end
 if "describe" == command
-  Dir["./states/*.rb"].each {|file| require file }
-  Dir["./users/*.rb"].each {|file| require file }
-  Dir["./journeys/*.rb"].each {|file| require file }
+  (
+    Dir["./states/*.rb"] +
+    Dir["./users/*.rb"] +
+    Dir["./journeys/*.rb"]
+  ).each {|file| require file }
 
   main = Tourist::Main.new(@world)
   main.describe
-elsif "tour" == command
-  Dir["./tools/*.rb"].each {|file| require file }
-  Dir["./states/*.rb"].each {|file| require file }
-  Dir["./users/*.rb"].each {|file| require file }
-  Dir["./journeys/*.rb"].each {|file| require file }
+elsif "drive" == command
+  (
+    Dir["./tools/*.rb"] + 
+    Dir["./states/*.rb"] + 
+    Dir["./users/*.rb"] + 
+    Dir["./journeys/*.rb"]
+  ).each {|file| require file }
 
   main = Tourist::Main.new(@world)
-  main.tour
+  main.drive options
 elsif "verify" == command
   Dir["./expectations/*.rb"].each {|file| require file }
   verify
 else
-  puts "Usage: tourist (describe|tour|verify)"
+  puts "Usage: tourist (describe|drive|verify)"
 end
