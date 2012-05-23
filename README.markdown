@@ -41,7 +41,7 @@ There is an example project created in the projects/cms directory. You can start
 > `rake db:drop db:create db:migrate db:seed && rails s`
 
 You can try tourist out by running this command:
-> `tourist describe && tourist tour && tourist verify`
+> `tourist describe && tourist drive && tourist verify`
 
 ### Usage
 Ensure you are in your project's tourist directory and that you have added the tourist tem.
@@ -51,7 +51,7 @@ Ensure you are in your project's tourist directory and that you have added the t
 >  `tourist describe`
 
 #### Tour
->  `tourist tour`
+>  `tourist drive`
 
 #### Verify
 >  `tourist verify`
