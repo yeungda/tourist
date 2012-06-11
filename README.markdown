@@ -1,21 +1,28 @@
 # Tourist
 
-A tourist takes journeys, snapping many pictures of what he sees along the way...
+Tourist is a framework for automating acceptance test journeys. Tourist takes your users on journeys through your application's states. As it visits each state on a journey, it records observations (like a tourist taking photos). When the journeys are complete, it verifys that the observations are as expected.
 
-## About
+Within Tourist you can describe your application as states, transitions and observations. You can simulate people using your application by describing journeys, users and expectations.
 
-Tourist aims to provide a scalable structure for your acceptance tests. It allows you to create longer running tests without having to write enormous amounts of procedural code. It does this by separating the concerns you find in longer tests into categories such as inputs, itineraries, expectations, transitions, and observations.
+# How does Tourist take a journey?
+
+Tourist starts by planning a journey based on the states you list that you want to visit. It uses the map of states you have created to find a path that visits all the states you have listed.
+
+Next Tourist asks a user to visit each planned state. It does this by executing the block of code you defined in transition for getting to the next state. From time to time, a transition will require some input, like a login, which the user supplies. After each transition, the user will record any observations that are available for the state it is in.
+
+Finally, Tourist reads each observation recorded. Any expectations that are applicable to the observation will be validated.
 
 # Goal
 
-* improve efficiency of acceptance test suites.
-* give clarity to where things belong.
+* Improve efficiency of acceptance test suites.
+* Create acceptance tests that more realistically simulate how people would use your application.
+* Define a structure for where things belong.
 
-## Work in Progess!
+# Getting Started
 
-This thing isn't finished, and no one in their right mind would use it on a project yet.
+## Here be dragons
 
-If you want to give it a go, these are all the steps I know of to get it to work.
+This is a work in progress. If you want to give it a go, these are all the steps I know of to get it to work.
 
 ### create some gemsets
 Do this before you begin
@@ -44,13 +51,13 @@ You can try tourist out by running this command:
 > `tourist describe && tourist drive && tourist verify`
 
 ### Usage
-Ensure you are in your project's tourist directory and that you have added the tourist tem.
+Ensure you are in your project's tourist directory and that you have added the tourist gem.
 >  `cd tourist`
 
 #### Describe
 >  `tourist describe`
 
-#### Tour
+#### Journey
 >  `tourist drive`
 
 #### Verify
