@@ -12,6 +12,19 @@ Next Tourist asks a user to visit each planned state. It does this by executing 
 
 Finally, Tourist reads each observation recorded. Any expectations that are applicable to the observation will be validated.
 
+# Usage
+Ensure you are in your project's tourist directory and that you have added the tourist gem.
+>  `cd tourist`
+
+## Describe
+>  `tourist describe`
+
+## Journey
+>  `tourist journey`
+
+## Verify
+>  `tourist verify`
+
 # Goal
 
 * Improve efficiency of acceptance test suites.
@@ -48,20 +61,8 @@ There is an example project created in the projects/cms directory. You can start
 > `rake db:drop db:create db:migrate db:seed && rails s`
 
 You can try tourist out by running this command:
-> `tourist describe && tourist drive && tourist verify`
+> `tourist describe && tourist journey && tourist verify`
 
-### Usage
-Ensure you are in your project's tourist directory and that you have added the tourist gem.
->  `cd tourist`
-
-#### Describe
->  `tourist describe`
-
-#### Journey
->  `tourist drive`
-
-#### Verify
->  `tourist verify`
 
 ## Writing journeys
 

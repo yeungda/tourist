@@ -12,7 +12,7 @@ if "describe" == command
 
   main = Tourist::Main.new(@world)
   main.describe
-elsif "drive" == command
+elsif "journey" == command
   (
     Dir["./tools/*.rb"] + 
     Dir["./states/*.rb"] + 
@@ -21,10 +21,10 @@ elsif "drive" == command
   ).each {|file| require file }
 
   main = Tourist::Main.new(@world)
-  main.drive options
+  main.journey options
 elsif "verify" == command
   Dir["./expectations/*.rb"].each {|file| require file }
   verify
 else
-  puts "Usage: tourist (describe|drive|verify)"
+  puts "Usage: tourist (describe|journey|verify)"
 end
