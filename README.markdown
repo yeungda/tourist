@@ -38,18 +38,13 @@ Ensure you are in your project's tourist directory and that you have added the t
 This is a work in progress. If you want to give it a go, these are all the steps I know of to get it to work.
 
 ### create some gemsets
-Do this before you begin
-
-> `rvm gemset create tourist`
-
-> `rvm gemset create tourist-example-cms`
 
 ### run bundler
 > `cd tourist`
 > `bundle`
 
 ### Build the gem
-> `gem build tourist.gemspec`
+> `./build.sh`
 
 ## Run the example
 
