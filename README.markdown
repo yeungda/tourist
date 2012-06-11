@@ -145,6 +145,7 @@ journey :search do
 end
 ```
 
+
 ### describe our expectation
 ```ruby
 expectation({
@@ -156,5 +157,60 @@ expectation({
     throw 'not 10 results' unless observation[:results].size == 10
   end
 })
+```
+
+### start our journey
+
+```
+$ tourist journey
+@searcher -> #search -> start -> search -> results
+```
+
+we can see what we recorded in reports/observations.yaml
+
+```yaml
+--- 
+location: :search
+timestamp: 2012-06-11 19:07:49.903706 +10:00
+journey: :search
+tags: []
+
+id: 1
+context: []
+
+observations: {}
+
+--- 
+location: :results
+timestamp: 2012-06-11 19:07:51.306699 +10:00
+journey: :search
+tags: []
+
+id: 2
+context: []
+
+observations: 
+  :results: 
+  - Recursion - Wikipedia, the free encyclopedia
+  - Recursion (computer science) - Wikipedia, the free encyclopedia
+  - Google Helps You Understand Recursion
+  - "ThinkGeek :: Recursion"
+  - Recursion | Define Recursion at Dictionary.com
+  - Recursive | Define Recursive at Dictionary.com
+  - Recursion Ventures
+  - Recursion
+  - Recursion -- from Wolfram MathWorld
+  - Did you mean recursion? - Digg
+
+```
+
+### Verify our expectations
+now let's verify what we've observed matches our expectations.
+
+```
+$ tourist verify
+[2][OK] the search for recursion should show 10 results
+
+1 passed, 0 failed
 ```
 
