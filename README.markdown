@@ -16,6 +16,10 @@ Finally, Tourist reads each observation recorded. Any expectations that are appl
 Ensure you are in your project's tourist directory and that you have added the tourist gem.
 >  `cd tourist`
 
+## Init
+Create the directory structure tourist requires
+> `tourist init`
+
 ## Describe
 >  `tourist describe`
 
@@ -58,24 +62,109 @@ There is an example project created in the projects/cms directory. You can start
 You can try tourist out by running this command:
 > `tourist describe && tourist journey && tourist verify`
 
+# A simple example
 
-## Writing journeys
+In this example, we will check that a search on google returns 10 results.
+
+### Initialise the project
+```
+mkdir google
+cd google
+gem install tourist
+gem install selenium-webdriver
+tourist init
+```
+
+### Tool
+create tools/web_driver_tool.rb
+```ruby
+require "selenium-webdriver"
+class WebDriverTool
+  def get
+    @@browser ||= Selenium::WebDriver.for :firefox
+  end
+
+  def off
+    @@browser.close unless @browser.nil?
+  end
+end
+
+tool :browser do
+  WebDriverTool.new
+end
+```
 
 ### States
+create states/start.rb
+```ruby
+state :start do
+  to :search do |browser, data|
+    browser.navigate.to data[:url]
+  end
+end
+```
 
-Describe your application states in the maps directory
+create states/search.rb
+```ruby
+state :search do
+  to :results do |browser, data|
+    browser.find_element(:name => 'q').send_keys data[:query]
+    browser.find_element(:name => 'btnG').click
+    wait = Selenium::WebDriver::Wait.new(:timeout => 30)
+    wait.until do
+      browser.find_elements(:css => '.r').size > 0
+    end
+  end
+end
+```
 
->  `location :homepage do end`
->  `location :articles do end`
->  `location :article do end`
+create states/results.rb
+```ruby
+state :results do
+  observations do |browser|
+    result_headings = browser.find_elements(:css => 'h3.r').map &:text
+    {
+      :results => result_headings
+    }
+  end
+end
+```
 
-### Transitions
+### User
+create users/searcher.rb
+```ruby
+user :searcher, :tool => :browser do
+  {
+    :url => 'http://www.google.com/',
+    :query => 'recursion'
+  }
+end
+```
 
-Describe the tranisitions that can be made from state to state and how to do it.
+### Journey
+```ruby
+journey :search do
+  [
+    {
+      :user_name => :searcher,
+      :intention => [:start, :results]
+    }
+  ]
+end
+```
 
->  `location :a_location`
->  `  to :another_location do end`
->  `end`
+### Expectation
+```ruby
+expectation({
+  :description => 'the search for recursion should show 10 results',
+  :for => {
+    'location' => :results
+  },
+  :assertions => lambda do |observation|
+    throw 'not 10 results' unless observation[:results].size == 10
+  end
+})
+```
 
 ## What is interesting about this?
 Here is some speculation about why this might be interesting
