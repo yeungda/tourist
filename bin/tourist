@@ -3,7 +3,9 @@ require 'tourist'
 
 command = ARGV[0]
 options = if ARGV.size <= 1 then nil else ARGV[1..-1] end
-if "describe" == command
+if "init" == command
+  Tourist::Main.init
+elsif "describe" == command
   (
     Dir["./states/*.rb"] +
     Dir["./users/*.rb"] +
@@ -26,5 +28,5 @@ elsif "verify" == command
   Dir["./expectations/*.rb"].each {|file| require file }
   verify
 else
-  puts "Usage: tourist (describe|journey|verify)"
+  puts "Usage: tourist (init|describe|journey|verify)"
 end

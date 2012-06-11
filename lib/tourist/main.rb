@@ -1,6 +1,10 @@
 Dir[File.dirname(__FILE__) + "/*.rb"].each {|file| require file }
 
 class Tourist::Main
+  def self.init
+    `mkdir expectations journeys reports states tools users`
+  end
+
   def initialize(world)
     @states = Tourist::States.new(
       world[:states].map {|name, data| 
@@ -57,7 +61,7 @@ class Tourist::Main
     puts([plan_view(plans), algebra_view(plans), unplanned_view(plans)].join("\n\n"))
   end
 
-  def drive(journey_names=nil)
+  def journey(journey_names=nil)
     Tourist::Blackbox.clear
     plan(journey_names).map {|plan| plan.execute(@users)}
     @users.values.each &:done
