@@ -29,39 +29,45 @@ Verify your observations
 
 Here be dragons. This is a work in progress. If you want to give it a go, these are all the steps I know of to get it to work.
 
-### run bundler
-> `cd tourist`
-> `bundle`
+## Build Tourist
+```
+cd tourist
+bundle
+./build.sh
+```
 
-### Build the gem
-> `./build.sh`
+## Run the CMS example
+Start the example app
+```
+cd projects/cms
+bundle
+rake db:drop db:create db:migrate db:seed && rails s
+```
 
-## Run the example
+then run the journeys
+```
+tourist journey
+tourist verify
+```
 
-There is an example project created in the projects/cms directory. You can start it with a command like this:
-> `cd projects/cms`
+## A simple example
 
-> `bundle`
-
-> `rake db:drop db:create db:migrate db:seed && rails s`
-
-You can try tourist out by running this command:
-> `tourist describe && tourist journey && tourist verify`
-
-# A simple example
-
-In this example, we will check that a search on google returns 10 results.
+In this example, we will check that a search on google returns 10 results. You can also find the code in the projects/google directory
 
 ### Initialise the project
 ```
 mkdir google
 cd google
 gem install tourist
-gem install selenium-webdriver
 tourist init
 ```
 
-### Tool
+### Setup our testing Tool
+Tourist is tool agnostic. We're going to use webdriver here.
+```
+gem install selenium-webdriver
+```
+
 create tools/web_driver_tool.rb
 ```ruby
 require "selenium-webdriver"
@@ -80,7 +86,7 @@ tool :browser do
 end
 ```
 
-### States
+### Describe states of google's search
 create states/start.rb
 ```ruby
 state :start do
@@ -116,7 +122,7 @@ state :results do
 end
 ```
 
-### User
+### describe a user
 create users/searcher.rb
 ```ruby
 user :searcher, :tool => :browser do
@@ -127,7 +133,7 @@ user :searcher, :tool => :browser do
 end
 ```
 
-### Journey
+### describe our journey
 ```ruby
 journey :search do
   [
@@ -139,7 +145,7 @@ journey :search do
 end
 ```
 
-### Expectation
+### describe our expectation
 ```ruby
 expectation({
   :description => 'the search for recursion should show 10 results',
