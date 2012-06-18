@@ -7,25 +7,25 @@ if "init" == command
   Tourist::Main.init
 elsif "describe" == command
   (
-    Dir["./states/*.rb"] +
-    Dir["./users/*.rb"] +
-    Dir["./journeys/*.rb"]
+    Dir["./states/**/*.rb"] +
+    Dir["./users/**/*.rb"] +
+    Dir["./journeys/**/*.rb"]
   ).each {|file| require file }
 
   main = Tourist::Main.new(@world)
   main.describe
 elsif "journey" == command
   (
-    Dir["./tools/*.rb"] + 
-    Dir["./states/*.rb"] + 
-    Dir["./users/*.rb"] + 
-    Dir["./journeys/*.rb"]
+    Dir["./tools/**/*.rb"] + 
+    Dir["./states/**/*.rb"] + 
+    Dir["./users/**/*.rb"] + 
+    Dir["./journeys/**/*.rb"]
   ).each {|file| require file }
 
   main = Tourist::Main.new(@world)
   main.journey options
 elsif "verify" == command
-  Dir["./expectations/*.rb"].each {|file| require file }
+  Dir["./expectations/**/*.rb"].each {|file| require file }
   verify(@verify_world)
 else
   puts "Usage: tourist (init|describe|journey|verify)"
