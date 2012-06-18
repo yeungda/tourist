@@ -148,15 +148,13 @@ end
 
 ### describe our expectation
 ```ruby
-expectation({
-  :description => 'the search for recursion should show 10 results',
-  :for => {
-    'location' => :results
-  },
-  :assertions => lambda do |observation|
-    throw 'not 10 results' unless observation[:results].size == 10
+scope "Results" do
+  criteria 'location' => :results
+
+  it "should show 10 results" do |observations|
+    throw 'not 10 results' unless observations[:results].size == 10
   end
-})
+end
 ```
 
 ### start our journey
