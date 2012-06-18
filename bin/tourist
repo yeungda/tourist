@@ -26,7 +26,7 @@ elsif "journey" == command
   main.journey options
 elsif "verify" == command
   Dir["./expectations/*.rb"].each {|file| require file }
-  verify
+  verify(@verify_world)
 else
   puts "Usage: tourist (init|describe|journey|verify)"
 end

@@ -2,12 +2,13 @@ require 'yaml'
 require File.dirname(__FILE__) + "/blackbox.rb"
 require File.dirname(__FILE__) + "/structural_matcher.rb"
 
-def verify
+def verify(verify_world)
   log = File.open(Tourist::Blackbox::LOG_PATH)
   pass_count = 0
   fail_count = 0
+  expectations = to_expectations(verify_world)
   YAML::load_documents(log) { |observation|
-    @expectations.each { |expectation|
+    expectations.each { |expectation|
       if expectation.applicable?(observation)
         result_success, result_description = expectation.assert(observation['observations'])
         if result_success
@@ -23,12 +24,49 @@ def verify
   puts "\n#{pass_count} passed, #{fail_count} failed\n\n"
 end
 
-def expectation(the_expectation)
-  @expectations = @expectations || []
-  @expectations << Tourist::Expectation.new(the_expectation[:description], 
-                                            the_expectation[:for],
-                                            the_expectation[:expectations],
-                                            the_expectation[:assertions])
+def to_expectations verify_world
+  verify_world[:scopes].values.map {|scope|
+    scope[:expectations].map {|expectation|
+      Tourist::Expectation.new(
+        scope[:description] + " " + expectation[:description],
+        scope[:criteria],
+        nil,
+        expectation[:block]
+      )
+    }
+  }.flatten
+end
+
+@verify_world = {
+  :scopes => {}
+}
+
+def scope description, &block
+  if not @verify_world[:scopes].has_key?(description)
+    @verify_world[:scopes][description] = {
+      :description => description,
+      :criteria => nil,
+      :expectations => []
+    }
+  end
+  @current_scope = @verify_world[:scopes][description]
+  block.call
+  @current_scope = nil
+end
+
+def criteria pattern
+  @current_scope[:criteria] = pattern
+end
+
+def it(description, &block)
+  @current_scope[:expectations] << {:description => description, :block => block}
+end
+
+def assert_structure(actual, expected)
+    result = Tourist::StructuralMatcher.match(expected, actual)
+    if not result[:matches?]
+      throw result[:description]
+    end
 end
 
 class Tourist::Expectation
