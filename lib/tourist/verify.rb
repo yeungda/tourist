@@ -95,7 +95,7 @@ class Tourist::Expectation
         @assertions.call(observations)
         [true]
       rescue
-        [false, $!.message + "\n" + $!.backtrace.to_s]
+        [false, $!.message]
       end
     else
       throw 'unknown expectation description'
