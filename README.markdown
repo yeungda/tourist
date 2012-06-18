@@ -207,7 +207,7 @@ now let's verify what we've observed matches our expectations.
 
 ```
 $ tourist verify
-[2][OK] the search for recursion should show 10 results
+[2][OK] Results should show 10 results
 
 1 passed, 0 failed
 ```
