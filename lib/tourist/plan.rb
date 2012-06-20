@@ -8,6 +8,7 @@ class Tourist::Plan
   
   def execute(users)
     blackbox = Tourist::Blackbox.new(@journey_name)
+    blackbox.clear
     observations = @itinerary.map {|item|
       users[item[:user_name]].visit(@journey_name, item[:journey], blackbox)
     }

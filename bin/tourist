@@ -24,9 +24,20 @@ elsif "journey" == command
 
   main = Tourist::Main.new(@world)
   main.journey options
+elsif "list" == command
+  (
+    Dir["./tools/**/*.rb"] + 
+    Dir["./states/**/*.rb"] + 
+    Dir["./users/**/*.rb"] + 
+    Dir["./journeys/**/*.rb"]
+  ).each {|file| require file }
+
+  main = Tourist::Main.new(@world)
+  main.list
+
 elsif "verify" == command
   Dir["./expectations/**/*.rb"].each {|file| require file }
   verify(@verify_world)
 else
-  puts "Usage: tourist (init|describe|journey|verify)"
+  puts "Usage: tourist (init|list|describe|journey|verify)"
 end

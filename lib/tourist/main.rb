@@ -62,9 +62,17 @@ class Tourist::Main
   end
 
   def journey(journey_names=nil)
-    Tourist::Blackbox.clear
-    plan(journey_names).map {|plan| plan.execute(@users)}
+    plan(journey_names).each {|plan| 
+      plan.execute(@users)
+    }
     @users.values.each &:done
+  end
+
+  def list
+    names = @journeys.map &:name
+    names.each {|name|
+      puts name
+    }
   end
 
   private

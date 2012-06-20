@@ -3,9 +3,8 @@ require File.dirname(__FILE__) + "/../../../lib/blackbox.rb"
 
 def analysis
   def all_observations
-    log = File.open(Blackbox::LOG_PATH)
     observations = []
-    docs = YAML::load_documents(log) { |observation|
+    Blackbox.each_observation { |observation|
       observations << observation
     }
     observations

@@ -3,19 +3,19 @@ require File.dirname(__FILE__) + "/blackbox.rb"
 require File.dirname(__FILE__) + "/structural_matcher.rb"
 
 def verify(verify_world)
-  log = File.open(Tourist::Blackbox::LOG_PATH)
   pass_count = 0
   fail_count = 0
   expectations = to_expectations(verify_world)
-  YAML::load_documents(log) { |observation|
+  Tourist::Blackbox.each_observation { |observation|
     expectations.each { |expectation|
       if expectation.applicable?(observation)
         result_success, result_description = expectation.assert(observation['observations'])
+        identifier = "#{observation['journey']} ##{observation['id']}"
         if result_success
-          puts "[#{observation['id']}][OK] #{expectation.description}"
+          puts "[OK][#{identifier}] #{expectation.description}"
           pass_count += 1
         else
-          puts "[#{observation['id']}][FAILED] #{expectation.description} because #{result_description}"
+          puts "[FAILED][#{identifier}}] #{expectation.description} because #{result_description}"
           fail_count += 1
         end
       end

@@ -1,7 +1,6 @@
 require 'yaml'
 
 class Tourist::Blackbox
-  LOG_PATH = './reports/observations.yaml'
 
   class Counter
     def initialize
@@ -16,17 +15,25 @@ class Tourist::Blackbox
 
   COUNTER = Counter.new
 
-  def self.clear
-    File.delete(LOG_PATH) if File.exists? LOG_PATH
+  def self.each_observation &block
+    Dir["#{LOG_PATH}/*.yaml"].each {|file|
+      log = File.open(file)
+      YAML::load_documents(log, &block)
+    }
+  end
+
+  def clear
+    File.delete @log_file if File.exists? @log_file
   end
 
   def initialize(journey_name=nil, context=[])
     @journey_name = journey_name
     @context = context
+    @log_file = "#{LOG_PATH}/#{@journey_name}.yaml"
   end
   
   def log(location, tags, data)
-    File.open(LOG_PATH, 'a' ) { |out|
+    File.open(@log_file, 'a' ) { |out|
       YAML.dump( {
           'id' => COUNTER.next,
           'journey' => @journey_name,
@@ -48,4 +55,9 @@ class Tourist::Blackbox
       file.readlines.each {|line| puts line}
     end
   end
+
+  private 
+
+  LOG_PATH = './reports/observations'
+
 end
