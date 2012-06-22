@@ -8,7 +8,18 @@
 def journey(name, &block)
   # create Users
   # execute block
-  @world[:journeys] << {:name => name, :block => block}
+  @current_journey = {:name => name, :categories => [], :stages => []}
+  @world[:journeys] << @current_journey
+  block.call
+  @current_journey = nil
+end
+
+def category(category_name)
+  @current_journey[:categories] << category_name
+end
+
+def stage &block
+  @current_journey[:stages] << block.call
 end
 
 def state(name, &block)

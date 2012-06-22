@@ -19,11 +19,26 @@ Create the directory structure tourist requires
 Print some information about your journeys on the console
 >  `tourist describe`
 
+List your journeys
+>  `tourist list`
+
 Take your journeys
 >  `tourist journey`
 
 Verify your observations
 >  `tourist verify`
+
+# Parallelisation
+
+Many tourist processes can run in parallel on the same machine.
+
+## 1 process per journey
+
+Here is a simple way to run each journey in separate processes, with a limit of 2 processes at onceusing GNU parallel:
+> `tourist list | parallel -j 2 tourist journey`
+> `tourist verify`
+
+## 1 process per bucket
 
 # Getting Started
 
@@ -136,12 +151,12 @@ end
 ### describe our journey
 ```ruby
 journey :search do
-  [
+  stage do
     {
       :user_name => :searcher,
       :intention => [:start, :results]
     }
-  ]
+  end
 end
 ```
 

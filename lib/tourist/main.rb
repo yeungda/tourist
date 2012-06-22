@@ -16,7 +16,7 @@ class Tourist::Main
       )
     })
 
-    @journeys = world[:journeys].map {|journey| Tourist::Journey.new(journey[:name], journey[:block], @states)}
+    @journeys = world[:journeys].map {|journey| Tourist::Journey.new(journey[:name], journey[:stages], journey[:categories], @states)}
 
     @tools = Tourist::Tools.new(tools(world[:tools]))
 
@@ -77,9 +77,12 @@ class Tourist::Main
 
   private
 
-  def plan(journey_names=nil)
+  def plan(query=nil)
     @journeys.select {|journey|
-      journey_names.nil? || journey_names.member?(journey.name.to_s)
+      false
+      true if query.nil?
+      true if query.member?("##{journey.name.to_s}")
+      true if journey.categories.any? {|category| query.member?(".#{category.to_s}")}
     }.map &:plan
   end
 

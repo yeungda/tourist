@@ -1,5 +1,5 @@
 scope "author's first article" do
-  criteria(
+(
     'journey' => :website_lifecycle,
     'location' => :successfully_created_article,
     'context' => [:first]

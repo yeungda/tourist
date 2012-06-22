@@ -1,15 +1,16 @@
 class Tourist::Journey
   attr_reader :name
+  attr_reader :categories
 
-  def initialize(name, block, states)
+  def initialize(name, stages, categories, states)
     @name = name
-    @block = block
+    @stages = stages
+    @categories = categories
     @states = states
   end
 
   def plan
-    plan = @block.call
-    itinerary = plan.map {|item| 
+    itinerary = @stages.map {|item| 
       {:user_name => item[:user_name], :journey => @states.resolve([:start]) + to_journey(item[:intention])}
     }
     Tourist::Plan.new(@name, itinerary)

@@ -1,5 +1,5 @@
 journey :website_lifecycle do
-  [ 
+  stage do
     {
       :user_name => :author,
       :intention => [
@@ -35,7 +35,10 @@ journey :website_lifecycle do
         :admin_articles_by_title_dsc,
         :logged_out
       ]
-    },
+    }
+  end
+
+  stage do
     {
       :user_name => :reader,
       :intention => [
@@ -47,5 +50,5 @@ journey :website_lifecycle do
         }
       ]
     }
-  ]
+  end  
 end
