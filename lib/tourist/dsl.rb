@@ -19,7 +19,18 @@ def category(category_name)
 end
 
 def stage &block
-  @current_journey[:stages] << block.call
+  @current_stage = {}
+  @current_journey[:stages] << @current_stage
+  block.call
+  @current_stage = nil
+end
+
+def user_name name
+  @current_stage[:user_name] = name
+end
+
+def intention state_list
+  @current_stage[:intention] = state_list
 end
 
 def state(name, &block)
