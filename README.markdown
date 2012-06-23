@@ -40,6 +40,29 @@ Here is a simple way to run each journey in separate processes, with a limit of 
 
 ## 1 process per bucket
 
+By categorising your tests, you can create buckets for running in separate processes.
+
+```
+journey :x do
+  category :bucket_a
+end
+
+journey :y do
+  category :bucket_b
+end
+```
+
+create a file called buckets containing the commands for each process:
+
+```
+tourist journey .bucket_a
+tourist journey .bucket_b
+```
+
+now run each process
+
+`cat buckets | parallel && tourist verify`
+
 # Getting Started
 
 Here be dragons. This is a work in progress. If you want to give it a go, these are all the steps I know of to get it to work.
