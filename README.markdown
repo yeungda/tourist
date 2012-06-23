@@ -158,7 +158,6 @@ journey :search do
 end
 ```
 
-
 ### describe our expectation
 ```ruby
 scope "Results" do
@@ -177,7 +176,7 @@ $ tourist journey
 @searcher -> #search -> start -> search -> results
 ```
 
-we can see what we recorded in reports/observations.yaml
+we can see what we recorded in reports/observations/search.yaml
 
 ```yaml
 --- 
