@@ -5,17 +5,17 @@ require File.dirname(__FILE__) + "/structural_matcher.rb"
 def verify(verify_world)
   pass_count = 0
   fail_count = 0
-  expectations = to_expectations(verify_world)
+  expectations = to_expectations([verify_world])
   Tourist::Blackbox.each_observation { |observation|
     expectations.each { |expectation|
       if expectation.applicable?(observation)
         result_success, result_description = expectation.assert(observation['observations'])
         identifier = "#{observation['journey']} ##{observation['id']}"
         if result_success
-          puts "[OK][#{identifier}] #{expectation.description}"
+          puts "[OK] #{expectation.description} [#{identifier}]"
           pass_count += 1
         else
-          puts "[FAILED][#{identifier}}] #{expectation.description} because #{result_description}"
+          puts "[FAILED] #{expectation.description} [#{identifier}] because #{result_description}"
           fail_count += 1
         end
       end
@@ -24,42 +24,64 @@ def verify(verify_world)
   puts "\n#{pass_count} passed, #{fail_count} failed\n\n"
 end
 
-def to_expectations verify_world
-  verify_world[:scopes].values.map {|scope|
-    scope[:expectations].map {|expectation|
-      Tourist::Expectation.new(
-        scope[:description] + " " + expectation[:description],
-        scope[:criteria],
-        nil,
-        expectation[:block]
-      )
+def to_expectations parent_scopes
+  def to_description describables
+    describables.inject('') {|description, describable|
+      description + 
+        if description.length == 0 then '' else ' ' end + 
+        describable[:description]
     }
+  end
+
+  def to_criteria scopes
+    scopes.inject({}) {|criteria, scope|
+      criteria.merge scope[:criteria]
+    }
+  end
+
+  def to_expectation description, criteria, expectation
+    Tourist::Expectation.new(description, criteria, nil, expectation[:block])
+  end
+
+  parent_scopes.last[:scopes].map {|scope|
+    current_scope = parent_scopes + [scope]
+    criteria = to_criteria(current_scope)
+    scope[:expectations].map {|expectation|
+      description = to_description(current_scope + [expectation])
+      to_expectation(description, criteria, expectation)
+    } + to_expectations(current_scope)
   }.flatten
 end
 
 @verify_world = {
-  :scopes => {}
+  :scopes => [],
+  :expectations => [],
+  :criteria => {},
+  :description => ''
 }
 
+@current_scope = [@verify_world]
+
 def scope description, &block
-  if not @verify_world[:scopes].has_key?(description)
-    @verify_world[:scopes][description] = {
-      :description => description,
-      :criteria => nil,
-      :expectations => []
-    }
-  end
-  @current_scope = @verify_world[:scopes][description]
+  next_scope = {
+    :description => description,
+    :criteria => {},
+    :expectations => [],
+    :scopes => []
+  }
+
+  @current_scope.last[:scopes] << next_scope
+  @current_scope.push next_scope
   block.call
-  @current_scope = nil
+  @current_scope.pop
 end
 
 def criteria pattern
-  @current_scope[:criteria] = pattern
+  @current_scope.last[:criteria] = pattern
 end
 
 def it(description, &block)
-  @current_scope[:expectations] << {:description => description, :block => block}
+  @current_scope.last[:expectations] << {:description => description, :block => block}
 end
 
 def assert_structure(actual, expected)

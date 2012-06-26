@@ -79,10 +79,15 @@ class Tourist::Main
 
   def plan(query=nil)
     @journeys.select {|journey|
-      false
-      true if query.nil?
-      true if query.member?("##{journey.name.to_s}")
-      true if journey.categories.any? {|category| query.member?(".#{category.to_s}")}
+      if query.nil?
+        true
+      elsif query.member?("#{journey.name.to_s}")
+        true
+      elsif journey.categories.any? {|category| query.member?(".#{category.to_s}")}
+        true
+      else
+        false
+      end
     }.map &:plan
   end
 

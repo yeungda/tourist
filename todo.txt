@@ -6,7 +6,7 @@ todo for showing to someone
 todo for something releasable
 * state missing error message
 * easy project initialisation
-* single command for describe, run, verify, etc
+* single command for journey, verify
 
 todo
 * observe state change time
