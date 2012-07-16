@@ -1,0 +1,4 @@
+source :rubygems
+
+gem 'tourist', '0.0.1'
+gem 'hash-deep-merge'

@@ -1,0 +1,12 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    hash-deep-merge (0.1.1)
+    tourist (0.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  hash-deep-merge
+  tourist (= 0.0.1)

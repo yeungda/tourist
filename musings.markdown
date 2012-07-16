@@ -84,3 +84,16 @@ verifications
   intent
   expected outputs
 
+
+
+# Decoupling user, journey, state, page and expectation
+
+
+A user has specific example data
+
+A journey is a list of states to visit
+
+An expectation is a general rule. It is not coupled only to the things that matter to it. This allows the expectation to be clearer in what is being tested.
+An expectation that is just for one specific example, probably has less meaning than one that addresses just the situation.
+
+

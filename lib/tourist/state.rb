@@ -15,9 +15,9 @@ class Tourist::State
     @transitions.keys
   end
 
-  def visit(destination, browser, user_data, blackbox)
-    @transitions[destination.name].transition(browser, user_data)
-    destination.observe(browser, blackbox)
+  def visit(destination, browser, user_data, user_state, blackbox)
+    @transitions[destination.name].transition(browser, user_data, user_state)
+    destination.observe(browser, blackbox.with_user_state(user_state))
   end
 
   def observe(browser, blackbox)

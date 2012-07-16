@@ -10,7 +10,7 @@ class Tourist::User
 
   def visit(journey_name, path, blackbox)
     print "@#{@name} -> ##{journey_name} -> "
-    visit_with_context(path, blackbox)
+    visit_with_context(path, blackbox, {})
     print "\n"
   end
 
@@ -27,7 +27,7 @@ class Tourist::User
 
   private
 
-  def visit_with_context(path, blackbox, context=[], previous_step=nil)
+  def visit_with_context(path, blackbox, user_state, context=[], previous_step=nil)
     path.each {|next_step|
       if !previous_step.nil?
         if next_step.class == Hash
@@ -35,7 +35,7 @@ class Tourist::User
           next_step = next_step[:journey].last
         else
           print " -> #{next_step.name}"
-          previous_step.visit(next_step, @tool.get, contextual_data(context), blackbox.with_context(context))
+          previous_step.visit(next_step, @tool.get, contextual_data(context), user_state, blackbox.with_context(context))
         end
       else
         print "#{next_step.name}"

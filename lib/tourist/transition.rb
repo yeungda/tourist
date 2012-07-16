@@ -8,7 +8,7 @@ class Tourist::Transition
     @destination
   end
 
-  def transition(browser, user_data)
-    @block.call(browser, user_data)
+  def transition(browser, user_data, user_state)
+    @block.call(browser, user_data, user_state)
   end
 end

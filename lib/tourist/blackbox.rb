@@ -26,9 +26,10 @@ class Tourist::Blackbox
     File.delete @log_file if File.exists? @log_file
   end
 
-  def initialize(journey_name=nil, context=[])
+  def initialize(journey_name=nil, context=[], user_state={})
     @journey_name = journey_name
     @context = context
+    @user_state = user_state
     @log_file = "#{LOG_PATH}/#{@journey_name}.yaml"
   end
   
@@ -41,13 +42,18 @@ class Tourist::Blackbox
           'tags' => tags,
           'timestamp' => Time.now, 
           'context' => @context,
+          'user_state' => @user_state,
           'observations' => data
       }, out)
      } 
   end
 
   def with_context(context)
-    Tourist::Blackbox.new(@journey_name, context)
+    Tourist::Blackbox.new(@journey_name, context, @user_state)
+  end
+
+  def with_user_state(user_state)
+    Tourist::Blackbox.new(@journey_name, @context, user_state)
   end
 
   def print
