@@ -31,7 +31,7 @@ class Tourist::User
     path.each {|next_step|
       if !previous_step.nil?
         if next_step.class == Hash
-          visit_with_context(next_step[:journey], blackbox, context + [next_step[:context]], previous_step)
+          visit_with_context(next_step[:journey], blackbox, user_state, context + [next_step[:context]], previous_step)
           next_step = next_step[:journey].last
         else
           print " -> #{next_step.name}"
