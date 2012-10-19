@@ -1,4 +1,5 @@
 require 'yaml'
+require 'fileutils'
 
 class Tourist::Blackbox
 
@@ -34,6 +35,7 @@ class Tourist::Blackbox
   end
   
   def log(location, tags, data)
+    ensure_log_dir_exists
     File.open(@log_file, 'a' ) { |out|
       YAML.dump( {
           'id' => COUNTER.next,
@@ -63,6 +65,10 @@ class Tourist::Blackbox
   end
 
   private 
+
+  def ensure_log_dir_exists
+    FileUtils.mkdir_p LOG_PATH unless File.exist? LOG_PATH
+  end
 
   LOG_PATH = './reports/observations'
 
